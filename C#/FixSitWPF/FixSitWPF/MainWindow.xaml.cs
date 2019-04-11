@@ -1,4 +1,6 @@
-﻿using MahApps.Metro.Controls;
+﻿using FixSitWPF.Activities;
+using FixSitWPF.Controller;
+using MahApps.Metro.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
