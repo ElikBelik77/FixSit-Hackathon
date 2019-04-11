@@ -11,6 +11,7 @@ import utils
 POSTURE_REQUEST = "request"
 POSTURE_STATUS = "posture_status"
 IMAGE_PATH = r"\Users\Naama\Desktop\fixSitting"
+MODEL_PATH = r"\Users\Naama\Downloads\openpose-1.4.0-win64-cpu-binaries\openpose-1.4.0-win64-cpu-binaries"
 
 if __name__ == '__main__':
     sock = utils.initialize_socket()
@@ -32,12 +33,12 @@ if __name__ == '__main__':
                 parsed = json.loads(request)
                 if parsed[POSTURE_REQUEST] == POSTURE_STATUS:
                     utils.take_image(IMAGE_PATH)
-                    result = posture_logic.main_logic(IMAGE_PATH)
+                    result = posture_logic.main_logic(IMAGE_PATH, MODEL_PATH)
                     connection.send(f"{len(result):05d}{result}".encode('utf-8'))
                 else:
                     connection.send(f"00003Err".encode('utf-8'))
-        except Exception as e :
-            print(e)
+        except Exception as e:
+            print(sys.stderr, e)
         finally:
             # Clean up the connection
             connection.close()
