@@ -14,6 +14,8 @@ ERROR_ANSWER = '{"answer":"error"}'
 CAMERA_ERROR_ANSWER = '{"answer":"camera_error"}'
 IMAGE_PATH = r"\Users\Naama\Desktop\fixSitting"
 MODEL_PATH = r"\Users\Naama\Downloads\openpose-1.4.0-win64-cpu-binaries\openpose-1.4.0-win64-cpu-binaries"
+MSG_LEN = 10
+
 
 if __name__ == '__main__':
     sock = utils.initialize_socket()
@@ -26,7 +28,7 @@ if __name__ == '__main__':
             print(sys.stderr, 'connection from', client_address)
             # Receive the request
             while True:
-                request = connection.recv(5)
+                request = connection.recv(MSG_LEN)
                 if not request or int(request) == 0:
                     print(sys.stderr, 'no more data from', client_address)
                     break
@@ -37,11 +39,12 @@ if __name__ == '__main__':
                     succeed = utils.take_image(IMAGE_PATH)
                     if not succeed:
                         print(sys.stderr, 'could not take image - camera error')
-                        connection.send(f'{len(CAMERA_ERROR_ANSWER):05d}{CAMERA_ERROR_ANSWER}'.encode('utf-8'))
+                        connection.send(f'{len(CAMERA_ERROR_ANSWER):0{MSG_LEN}d}{CAMERA_ERROR_ANSWER}'.encode('utf-8'))
+                        break
                     result = posture_logic.main_logic(IMAGE_PATH, MODEL_PATH)
-                    connection.send(f"{len(result):05d}{result}".encode('utf-8'))
+                    connection.send(f"{len(result):0{MSG_LEN}d}{result}".encode('utf-8'))
                 else:
-                    connection.send(f'{len(ERROR_ANSWER):05d}{ERROR_ANSWER}'.encode('utf-8'))
+                    connection.send(f'{len(ERROR_ANSWER):0{MSG_LEN}d}{ERROR_ANSWER}'.encode('utf-8'))
         except Exception as e:
             print(sys.stderr, e)
         finally:

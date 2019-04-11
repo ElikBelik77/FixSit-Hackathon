@@ -75,7 +75,7 @@ namespace FixSitWPF.Activities
                 balloonTipText = "You are sitting good, well done !";
             }
 
-            if (response["answer"].ToString() != "bad")
+            if (response["answer"].ToString() == "bad")
             {
                 System.Windows.Application.Current.Dispatcher.Invoke(() =>
                 {
@@ -102,7 +102,6 @@ namespace FixSitWPF.Activities
             }
 
             //REMOVE THIS !
-            OnFinish?.Invoke(this);
         }
 
 
