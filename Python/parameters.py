@@ -2,10 +2,18 @@ import cv2
 import math
 
 
-def depth(height, width):
+def depth(hu, hl, wl, wr):
     # Resize pixels
-    height *= 4.09
-    width *= 4
+    hu[1] *= 4.09
+    hu[0] *= 4
+    hl[1] *= 4.09
+    hl[0] *= 4
+    wl[1] *= 4.09
+    wl[0] *= 4
+    wr[1] *= 4.09
+    wr[0] *= 4
+    height = math.sqrt((hu[0]-hl[0])**2+(hu[1]-hl[1])**2)
+    width = math.sqrt((wl[0]-wr[0])**2+(wl[0]-wr[0])**2)
     # Find factor of resizing
     f = 330/height
     width *= f
