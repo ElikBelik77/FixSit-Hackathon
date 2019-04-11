@@ -21,10 +21,8 @@
                     Width="250"
                     Height="110"
                     VerticalAlignment="Bottom"
-                    HorizontalAlignment="Center">
-            <Image.Source>
-                <BitmapImage UriSource="Asset 1.png"/>
-            </Image.Source>
+                    HorizontalAlignment="Center" Source="../Resources/Asset 1.png">
+            
         </Image>
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>

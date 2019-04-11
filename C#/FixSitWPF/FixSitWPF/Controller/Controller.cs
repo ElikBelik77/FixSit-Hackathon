@@ -9,6 +9,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using WpfAnimatedGif;
 
 namespace FixSitWPF.Controller
 {
@@ -22,6 +25,8 @@ namespace FixSitWPF.Controller
         private ActivityScheduler _ActivityScheduler;
         private DataClient _Client;
         private MainWindow _Window;
+
+
         #endregion
 
         #region Properties        
@@ -84,14 +89,26 @@ namespace FixSitWPF.Controller
             _SettingsModel = new SettingsModel();
             _Client = new DataClient("127.0.0.1", 10000);
             PostureActivity poseActivity = new PostureActivity(_Client);
+            ExerciseActivity execActivity = new ExerciseActivity(this);
+            execActivity.OnExerciseStart += (paths) =>
+            {
+                win.SetContent(win._ExerciseContent);
+                win._ExerciseContent.ShowGifs(paths);
+            };
+            
             poseActivity.OnImageUpdate += PoseActivity_OnImageUpdate;
             _ActivityScheduler = new ActivityScheduler(new Dictionary<IActivity, int>()
             {
-                { poseActivity, 5 }
+                //{ poseActivity, 1 }
+                {execActivity,5}
             });
             _ActivityScheduler.Start();
             _Window = win;
         }
+
+        
+
+
 
 
         #endregion
@@ -129,5 +146,6 @@ namespace FixSitWPF.Controller
 
             Process.Start(@"C:\Users\Naama\AppData\Local\Programs\Python\Python36-32\python.exe",pythonModelPath);
         }
+        
     }
 }
