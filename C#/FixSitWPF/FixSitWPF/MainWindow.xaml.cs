@@ -1,4 +1,6 @@
-﻿using MahApps.Metro.Controls;
+﻿using FixSitWPF.Activities;
+using FixSitWPF.Controller;
+using MahApps.Metro.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,7 +34,14 @@ namespace FixSitWPF
             AppMenu.AddButton(new FixSitWPF.Views.Buttons.StatsButton(Display));
             AppMenu.AddButton(new FixSitWPF.Views.Buttons.SettingsButton(Display));
             AppMenu.AddButton(new FixSitWPF.Views.Buttons.QuitButton());
-            
+            ActivityScheduler sche = new ActivityScheduler(new Dictionary<IActivity, int>()
+            {
+                {new PostureActivity(),10 }
+            });
+            sche.Start();
+
+            Controller.Controller c = new Controller.Controller();
+            c.CreatePythonModel();
             
             
         }

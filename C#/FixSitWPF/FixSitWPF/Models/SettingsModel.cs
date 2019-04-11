@@ -23,7 +23,6 @@ namespace FixSitWPF.Models
         }
         #endregion
 
-
         #region Properties
         public double SoundPowers
         {
