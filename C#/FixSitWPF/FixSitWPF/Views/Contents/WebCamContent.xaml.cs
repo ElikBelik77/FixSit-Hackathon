@@ -20,9 +20,52 @@ namespace FixSitWPF.Views.Contents
     /// </summary>
     public partial class WebCamContent : UserControl
     {
+        #region Member Variables
+        private string _Description;
+        #endregion
+
+        #region         
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WebCamContent"/> class.
+        /// </summary>
         public WebCamContent()
         {
             InitializeComponent();
         }
+        #endregion
+
+        #region Properties        
+        /// <summary>
+        /// Gets or sets the description.
+        /// </summary>
+        /// <value>
+        /// The description.
+        /// </value>
+        public string Description
+        {
+            get { return _Description; }
+            set
+            {
+                _Description = value;
+
+            }
+        }
+
+        /// <summary>
+        /// Sets the image.
+        /// </summary>
+        /// <value>
+        /// The image.
+        /// </value>
+        public Image Image
+        {
+            
+            set {
+                DrawingCanvas.Children.Clear();
+                DrawingCanvas.Children.Add(value);
+            }
+        }
+        #endregion
+
     }
 }

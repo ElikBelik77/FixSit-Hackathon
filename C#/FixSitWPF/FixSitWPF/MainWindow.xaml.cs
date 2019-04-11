@@ -26,11 +26,34 @@ namespace FixSitWPF
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
+        #region Member Variable
         private System.Windows.Forms.NotifyIcon _NotifyIcon;
+        private WebCamContent _WebcamContent;
+        #endregion
 
+        #region Properties        
+        /// <summary>
+        /// Gets or sets the content of the webcam.
+        /// </summary>
+        /// <value>
+        /// The content of the webcam.
+        /// </value>
+        public WebCamContent WebcamContent
+        {
+            get { return _WebcamContent; }
+            set { _WebcamContent = value; }
+        }
+        #endregion
+
+
+        #region Constructors        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MainWindow"/> class.
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
+            _WebcamContent = new WebCamContent();
             _NotifyIcon = new System.Windows.Forms.NotifyIcon();
             _NotifyIcon.Icon = System.Drawing.SystemIcons.Application;
             _NotifyIcon.Click += _NotifyIcon_Click;
@@ -40,7 +63,7 @@ namespace FixSitWPF
             };
 
             WebcamButton.Click += (sender, e) => {
-                SetContent(new WebCamContent());
+                SetContent(_WebcamContent);
             };
 
             StatisticsButton.Click += (sender, e) => {
@@ -63,12 +86,20 @@ namespace FixSitWPF
             //c.CreatePythonModel();
 
         }
-        private void SetContent(System.Windows.Controls.UserControl control)
+        #endregion
+
+
+        /// <summary>
+        /// Sets the content of the main part of the main window.
+        /// </summary>
+        /// <param name="control">The control.</param>
+        public void SetContent(System.Windows.Controls.UserControl control)
         {
             Display.Children.Clear();
             Display.Children.Add(control);
             
         }
+        
 
         private void _NotifyIcon_Click(object sender, EventArgs e)
         {
@@ -80,14 +111,12 @@ namespace FixSitWPF
         {
             if (WindowState == WindowState.Minimized)
             {
-                
                 _NotifyIcon.Visible = false;
             }
 
-            else if (WindowState.Normal== this.WindowState)
+            else if (WindowState.Normal == this.WindowState)
             {
                 _NotifyIcon.Visible = true;
-
                 this.Hide();
             }
         }

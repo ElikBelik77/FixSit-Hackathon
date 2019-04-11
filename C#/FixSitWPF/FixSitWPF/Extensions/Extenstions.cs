@@ -8,8 +8,16 @@ using System.Threading.Tasks;
 
 namespace FixSitWPF.Extensions
 {
+    /// <summary>
+    /// Extenstions for bultins classes.
+    /// </summary>
     public static class Extenstions
     {
+        /// <summary>
+        /// Converts a dictionary to json string.
+        /// </summary>
+        /// <param name="dict">The dictionary.</param>
+        /// <returns>json string representing the dictionary</returns>
         public static string ToJson(this Dictionary<string, string> dict)
         {
             var entries = dict.Select(d =>

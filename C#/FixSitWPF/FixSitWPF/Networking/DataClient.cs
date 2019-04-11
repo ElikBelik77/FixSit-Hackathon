@@ -12,6 +12,7 @@ namespace FixSitWPF.Networking
 {
     public class DataClient
     {
+        private int _PrefixLength = 10;
         private Socket _Socket;
         private Thread _CommunicationThread;
         private int _Port;
@@ -44,13 +45,13 @@ namespace FixSitWPF.Networking
 
         private void SendRequest(string request)
         {
-            string data = request.ToString().Length.ToString().PadLeft(5, '0') + request.ToString();
+            string data = request.ToString().Length.ToString().PadLeft(_PrefixLength, '0') + request.ToString();
             _Socket.Send(Encoding.UTF8.GetBytes(data));
         }
 
         private JObject ReadResponse()
         {
-            byte[] messageLengthBuffer = new byte[5];
+            byte[] messageLengthBuffer = new byte[10];
             _Socket.Receive(messageLengthBuffer);
             int messageLength = int.Parse(Encoding.UTF8.GetString(messageLengthBuffer));
             byte[] messageBuffer = new byte[messageLength];
