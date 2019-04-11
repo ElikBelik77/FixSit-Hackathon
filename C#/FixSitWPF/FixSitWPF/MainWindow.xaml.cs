@@ -89,8 +89,7 @@ namespace FixSitWPF
             
             QuitButton.Click += Quit_Click;
 
-            //FixSitWPF.Controller.Controller c = new Controller.Controller();
-            //c.CreatePythonModel();
+            controller.CreatePythonModel();
 
         }
         #endregion

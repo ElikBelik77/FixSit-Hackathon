@@ -102,7 +102,7 @@ namespace FixSitWPF.Controller
                 //{ poseActivity, 1 }
                 {execActivity,5}
             });
-            //_ActivityScheduler.Start();
+            _ActivityScheduler.Start();
             _Window = win;
         }
 
@@ -116,6 +116,8 @@ namespace FixSitWPF.Controller
         {
             this._Window.WebcamContent.Image = ConvertDrawingImageToWPFImage(image);
             this._Window.WebcamContent.Description = description;
+            this._Window.SetContent(this._Window.WebcamContent);
+            this._Window.Show();
         }
 
         private System.Windows.Controls.Image ConvertDrawingImageToWPFImage(System.Drawing.Image gdiImg)
@@ -141,7 +143,8 @@ namespace FixSitWPF.Controller
         {
             string[] splitDirData = Environment.CurrentDirectory.Split(new[] { @"\" }, StringSplitOptions.None);
             string pythonModelPath = String.Join("/",splitDirData.Take(splitDirData.Length-5))+ @"/Python/main.py";
-            Process.Start(pythonModelPath);
+
+            Process.Start(@"C:\Users\Naama\AppData\Local\Programs\Python\Python36-32\python.exe",pythonModelPath);
         }
         
     }

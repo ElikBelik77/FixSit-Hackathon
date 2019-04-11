@@ -3,12 +3,12 @@ import json
 import os
 
 # """bin\OpenPoseDemo.exe --image_dir \Users\Naama\Desktop\fixSitting\ --write_json \Users\Naama\Desktop\fixSitting\ --display 0 --face --hand --net_resolution 320x176 --face_net_resolution 320x320 --write_images \Users\Naama\Desktop\fixSitting\"""
-MODEL_COMMAND = r"bin\OpenPoseDemo.exe --image_dir {}\ --write_json {}\ --display 0 --render_pose 0 --net_resolution 320x176 --face_net_resolution 320x320"
+MODEL_COMMAND = r"bin\OpenPoseDemo.exe --image_dir {}\ --write_json {}\ --display 0 --write_images {}\ --face --net_resolution 320x176 --face_net_resolution 320x320"
 
 
-def get_body_face_json(model_path, input_path, output_path, json_name):
+def get_body_face_json(model_path, image_input_path, json_output_path, image_output_path, json_name):
     os.chdir(model_path)
-    formatted_command = MODEL_COMMAND.format(input_path, output_path)
+    formatted_command = MODEL_COMMAND.format(image_input_path, json_output_path, image_output_path )
     print(formatted_command)
     formatted_command = formatted_command.split(" ")
     subprocess.run(formatted_command)
@@ -18,14 +18,16 @@ def get_body_face_json(model_path, input_path, output_path, json_name):
 
 def parse_json(file):
     json_dict = json.loads(file)
-    name_dict = {"Neck":1, "RShoulder":2, "LShoulder":5, "REye":15, "LEye":16, "REar":17, "LEar":18}
+    name_dict = {"Nose":0 ,"Neck":1, "RShoulder":2, "LShoulder":5, "REye":15, "LEye":16, "REar":17, "LEar":18}
     body_dict = {}
     # the list of the values
     info = json_dict['people'][0]['pose_keypoints_2d']
     for item in name_dict.items():
         i = item[1] * 3
-        body_dict[item[0]] = [info[i], info[i + 1], info[i + 2]]
+        body_dict[item[0]] = info[i:i+3]
     # print(body_dict)
+    chin = json_dict['people'][0]['face_keypoints_2d']
+    body_dict['Chin'] = chin[24:27]
     return body_dict
 
 
