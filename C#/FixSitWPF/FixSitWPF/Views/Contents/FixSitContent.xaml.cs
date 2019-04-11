@@ -13,22 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace FixSitWPF.Views
+namespace FixSitWPF.Views.Contents
 {
     /// <summary>
-    /// Interaction logic for Menu.xaml
+    /// Interaction logic for FixSitContent.xaml
     /// </summary>
-    public partial class Menu : UserControl
+    public partial class FixSitContent : UserControl
     {
-        public Menu()
+        public FixSitContent()
         {
             InitializeComponent();
-            
-           
-        }
-        public void AddButton(Button button)
-        {
-            Stack.Children.Add(button);
         }
     }
 }

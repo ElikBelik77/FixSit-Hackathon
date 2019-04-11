@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace FixSitWPF.Views
+namespace FixSitWPF.Views.Contents
 {
     /// <summary>
-    /// Interaction logic for FixSitContent.xaml
+    /// Interaction logic for StatsContent.xaml
     /// </summary>
-    public partial class FixSitContent : UserControl
+    public partial class StatsContent : UserControl
     {
-        public FixSitContent()
+        public StatsContent()
         {
             InitializeComponent();
         }

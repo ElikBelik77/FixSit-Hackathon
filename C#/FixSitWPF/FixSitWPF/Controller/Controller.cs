@@ -1,6 +1,7 @@
 ﻿using FixSitWPF.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,5 +38,12 @@ namespace FixSitWPF.Controller
 
         }
         #endregion
+
+        public void CreatePythonModel()
+        {
+            string[] splitDirData = Environment.CurrentDirectory.Split(new[] { @"\" }, StringSplitOptions.None);
+            string pythonModelPath = String.Join("/",splitDirData.Take(splitDirData.Length-5))+ @"/Python/main.py";
+            Process.Start(pythonModelPath);
+        }
     }
 }

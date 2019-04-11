@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FixSitWPF"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-        xmlns:views="clr-namespace:FixSitWPF.Views"
+        xmlns:views="clr-namespace:FixSitWPF.Views.Contents"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>

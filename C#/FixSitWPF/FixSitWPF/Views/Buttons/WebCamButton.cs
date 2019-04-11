@@ -26,7 +26,7 @@ namespace FixSitWPF.Views.Buttons
 
         public void ShowContent(Grid grid)
         {
-            WebCamContent content = new WebCamContent();
+            FixSitWPF.Views.Contents.WebCamContent content = new FixSitWPF.Views.Contents.WebCamContent();
             grid.Children.Add(content);
             Grid.SetColumn(content, 0);
             Grid.SetRow(content, 0);

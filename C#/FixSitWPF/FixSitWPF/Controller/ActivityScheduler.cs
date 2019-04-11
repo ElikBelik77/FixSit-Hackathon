@@ -5,6 +5,7 @@ using System.Text;
 using System.Timers;
 using System.Threading.Tasks;
 
+
 namespace FixSitWPF.Controller
 {
     public delegate void ScheduleEvent(IActivity activity);
@@ -57,7 +58,8 @@ namespace FixSitWPF.Controller
             {
                 _RemainingActivities.First().Key.OnFinish += Activity_OnFinish;
                 _ScheduleTimer.Stop();
-                _RemainingActivities.First().Key.Start();
+                System.Threading.Thread activityThread = new System.Threading.Thread(() => _RemainingActivities.First().Key.Start());
+                activityThread.Start();
             }
         }
 
