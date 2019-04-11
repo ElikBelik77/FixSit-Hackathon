@@ -27,7 +27,7 @@ namespace FixSitWPF.Views.Buttons
 
         public void ShowContent(Grid grid)
         {
-            StatsContent content = new StatsContent();
+            FixSitWPF.Views.Contents.StatsContent content = new FixSitWPF.Views.Contents.StatsContent();
             grid.Children.Add(content);
             Grid.SetColumn(content, 0);
             Grid.SetRow(content, 0);

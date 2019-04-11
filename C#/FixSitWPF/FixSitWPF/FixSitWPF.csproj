@@ -91,24 +91,24 @@
     <Compile Include="Views\Buttons\QuitButton.cs" />
     <Compile Include="Views\Buttons\SettingsButton.cs" />
     <Compile Include="Views\Buttons\StatsButton.cs" />
-    <Compile Include="Views\ExerciseContent.xaml.cs">
+    <Compile Include="Views\Contents\ExerciseContent.xaml.cs">
       <DependentUpon>ExerciseContent.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\FixSitContent.xaml.cs">
+    <Compile Include="Views\Contents\FixSitContent.xaml.cs">
       <DependentUpon>FixSitContent.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\MyMenu.xaml.cs">
+    <Compile Include="Views\Contents\MyMenu.xaml.cs">
       <DependentUpon>MyMenu.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Buttons\MyButton.cs" />
     <Compile Include="Views\Buttons\WebCamButton.cs" />
-    <Compile Include="Views\SettingsContent.xaml.cs">
+    <Compile Include="Views\Contents\SettingsContent.xaml.cs">
       <DependentUpon>SettingsContent.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\StatsContent.xaml.cs">
+    <Compile Include="Views\Contents\StatsContent.xaml.cs">
       <DependentUpon>StatsContent.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\WebCamContent.xaml.cs">
+    <Compile Include="Views\Contents\WebCamContent.xaml.cs">
       <DependentUpon>WebCamContent.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
@@ -129,27 +129,27 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\ExerciseContent.xaml">
+    <Page Include="Views\Contents\ExerciseContent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\FixSitContent.xaml">
+    <Page Include="Views\Contents\FixSitContent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\MyMenu.xaml">
+    <Page Include="Views\Contents\MyMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\SettingsContent.xaml">
+    <Page Include="Views\Contents\SettingsContent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\StatsContent.xaml">
+    <Page Include="Views\Contents\StatsContent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\WebCamContent.xaml">
+    <Page Include="Views\Contents\WebCamContent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -183,8 +183,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
