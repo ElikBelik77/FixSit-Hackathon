@@ -17,6 +17,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using FixSitWPF.Views.Contents;
+using FixSitWPF.Views;
 
 namespace FixSitWPF
 {
@@ -33,17 +34,39 @@ namespace FixSitWPF
             _NotifyIcon = new System.Windows.Forms.NotifyIcon();
             _NotifyIcon.Icon = System.Drawing.SystemIcons.Application;
             _NotifyIcon.Click += _NotifyIcon_Click;
-            AppMenu.AddButton(new FixSitWPF.Views.Buttons.FixSitButton(Display));
-            AppMenu.AddButton(new FixSitWPF.Views.Buttons.WebCamButton(Display));
-            AppMenu.AddButton(new FixSitWPF.Views.Buttons.ExerciseButton(Display));
-            AppMenu.AddButton(new FixSitWPF.Views.Buttons.StatsButton(Display));
-            AppMenu.AddButton(new FixSitWPF.Views.Buttons.SettingsButton(Display));
-            FixSitWPF.Views.Buttons.QuitButton quit = new FixSitWPF.Views.Buttons.QuitButton();
-            AppMenu.AddButton(quit);
-            quit.Click += Quit_Click;
+            FixSitButton.Click += (sender, e) =>
+            {
+                SetContent(new FixSitContent());
+            };
 
-            FixSitWPF.Controller.Controller c = new Controller.Controller();
+            WebcamButton.Click += (sender, e) => {
+                SetContent(new WebCamContent());
+            };
+
+            StatisticsButton.Click += (sender, e) => {
+                SetContent(new StatsContent());
+            };
+
+            ExerciseButton.Click += (sender, e) =>
+            {
+                SetContent(new ExerciseContent());
+            };
+
+            SettingsButton.Click += (sender, e) =>
+            {
+                SetContent(new SettingsContent());
+            };
+            
+            QuitButton.Click += Quit_Click;
+
+            //FixSitWPF.Controller.Controller c = new Controller.Controller();
             //c.CreatePythonModel();
+
+        }
+        private void SetContent(System.Windows.Controls.UserControl control)
+        {
+            Display.Children.Clear();
+            Display.Children.Add(control);
             
         }
 
