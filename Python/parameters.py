@@ -2,18 +2,19 @@ import cv2
 import math
 
 
-def depth(hu, hl, wl, wr):
+
+def depth(nose, chin, earl, earr):
     # Resize pixels
-    hu[1] *= 4.09
-    hu[0] *= 4
-    hl[1] *= 4.09
-    hl[0] *= 4
-    wl[1] *= 4.09
-    wl[0] *= 4
-    wr[1] *= 4.09
-    wr[0] *= 4
-    height = math.sqrt((hu[0]-hl[0])**2+(hu[1]-hl[1])**2)
-    width = math.sqrt((wl[0]-wr[0])**2+(wl[0]-wr[0])**2)
+    nose[1] *= 4.09
+    nose[0] *= 4
+    chin[1] *= 4.09
+    chin[0] *= 4
+    earl[1] *= 4.09
+    earl[0] *= 4
+    earr[1] *= 4.09
+    earr[0] *= 4
+    height = math.sqrt((nose[0]-chin[0])**2+(nose[1]-chin[1])**2)
+    width = math.sqrt((earl[0]-earr[0])**2+(earl[0]-earr[0])**2)
     # Find factor of resizing
     f = 330/height
     width *= f
@@ -48,13 +49,13 @@ def ears_to_shoulders(earl, earr, shoull, shoulr):
         return 1
 
 
-def chin_to_breast(chin, breast):
+def chin_to_neck(chin, neck):
     # Resizing pixels
     chin[0] *= 4
     chin[1] *= 4.09
-    breast[0] *= 4
-    breast[1] *= 4.09
-    d = math.sqrt((chin[0]-breast[0])**2+(chin[1]-breast[1])**2)
+    neck[0] *= 4
+    neck[1] *= 4.09
+    d = math.sqrt((chin[0]-neck[0])**2+(chin[1]-neck[1])**2)
     # Classifying
     if 165 <= d <= 220:
         return 0
