@@ -3,12 +3,12 @@ import json
 import os
 
 # """bin\OpenPoseDemo.exe --image_dir \Users\Naama\Desktop\fixSitting\ --write_json \Users\Naama\Desktop\fixSitting\ --display 0 --face --hand --net_resolution 320x176 --face_net_resolution 320x320 --write_images \Users\Naama\Desktop\fixSitting\"""
-MODEL_COMMAND = r"bin\OpenPoseDemo.exe --image_dir {}\ --write_json {}\ --display 0 --face --hand --net_resolution 320x176 --write_images {}\ --face_net_resolution 320x320"
+MODEL_COMMAND = r"bin\OpenPoseDemo.exe --image_dir {}\ --write_json {}\ --display 0 --render_pose 0 --net_resolution 320x176 --face_net_resolution 320x320"
 
 
 def get_body_face_json(model_path, input_path, output_path, json_name):
     os.chdir(model_path)
-    formatted_command = MODEL_COMMAND.format(input_path, output_path, output_path)
+    formatted_command = MODEL_COMMAND.format(input_path, output_path)
     print(formatted_command)
     formatted_command = formatted_command.split(" ")
     subprocess.run(formatted_command)
