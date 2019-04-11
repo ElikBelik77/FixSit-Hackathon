@@ -62,7 +62,7 @@
             <RowDefinition Height="1*"></RowDefinition>
             <RowDefinition Height="1*"></RowDefinition>
             <RowDefinition Height="1*"></RowDefinition>
-            <RowDefinition Height="1*"></RowDefinition>
+            
             <RowDefinition Height="4*"></RowDefinition>
             <RowDefinition Height="1*"></RowDefinition>
         </Grid.RowDefinitions>
@@ -70,8 +70,8 @@
         <Button Grid.Row="0" Style="{StaticResource ButtonStyle}" x:Name="FixSitButton">FixSit</Button>
         <Button Grid.Row="1" Style="{StaticResource ButtonStyle}" x:Name="WebcamButton">Webcam</Button>
         <Button Grid.Row="2" Style="{StaticResource ButtonStyle}" x:Name="ExerciseButton">Exercise</Button>
-        <Button Grid.Row="3" Style="{StaticResource ButtonStyle}" x:Name="StatisticsButton">Statistics</Button>
-        <Button Grid.Row="4" Style="{StaticResource ButtonStyle}" x:Name="SettingsButton">Settings</Button>
+        
+        <Button Grid.Row="3" Style="{StaticResource ButtonStyle}" x:Name="SettingsButton">Settings</Button>
         
         <Button Style="{StaticResource ButtonStyle}" Grid.Row ="6" x:Name="QuitButton" Background="IndianRed">Minimize to Tray</Button>
         <Grid Grid.Column="1" Grid.RowSpan="6" x:Name="Display">

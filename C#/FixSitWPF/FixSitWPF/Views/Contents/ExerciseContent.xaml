@@ -53,17 +53,21 @@
             <RowDefinition Height="5*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Canvas Grid.Row="0" x:Name="cv">
+        <Grid Grid.Row="0" x:Name="cv">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
             <Image x:Name="GifView" Stretch="Fill" RenderOptions.BitmapScalingMode="Fant"
                    
-                    Width="{Binding ElementName=cv, Path=ActualWidth}"
-                    Height="{Binding ElementName=cv, Path=ActualHeight}"
+                    Grid.Column="1"
                     VerticalAlignment="Top"
-                    Margin="0,0,0,0"
+                    Margin="0,4,0,0"
                     HorizontalAlignment="Center">
 
             </Image>
-        </Canvas>
-        <Button Grid.Row="1" Style="{StaticResource ButtonStyle}" Background="IndianRed" x:Name="Button" Click="Next_Button">Next</Button>
+        </Grid>
+        <Button Grid.Row="1" Style="{StaticResource ButtonStyle}"  x:Name="Button" Click="Next_Button">Next</Button>
     </Grid>
 </UserControl>

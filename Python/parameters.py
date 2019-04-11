@@ -9,9 +9,12 @@ def depth(nose, chin, earl, earr):
     f = 110/height
     width *= f
     # Find range
-    if 115 <= width <= 150:
+    print("width",width)
+    print("f",int(f * 1000))
+    factor = 1000 * f
+    if 1100 <= factor <= 1400:
         return 0
-    elif width < 115:
+    elif factor < 1100:
         return 1
     else:
         return -1
@@ -21,9 +24,9 @@ def depth(nose, chin, earl, earr):
 def chin_to_neck(chin, neck):
     d = math.sqrt((chin[0]-neck[0])**2+(chin[1]-neck[1])**2)
     # Classifying
-    if 90 <= d <= 125:
+    if 75 <= d <= 125:
         return 0
-    elif d < 90:
+    elif d < 75:
         return 1
     else:
         return -1
@@ -34,9 +37,9 @@ def ears_to_shoulders(earl, earr, shoull, shoulr):
     dr = math.sqrt((earr[0] - shoulr[0]) ** 2 + (earr[1] - shoulr[1]) ** 2)
     averageDist=(dl+dr)/2
     # Classifying
-    if 180 <= averageDist <= 225:
+    if 170 <= averageDist <= 225:
         return 0
-    elif averageDist < 180:
+    elif averageDist < 170:
         return -1
     else:
         return 1
