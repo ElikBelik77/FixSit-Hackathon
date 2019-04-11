@@ -17,7 +17,7 @@ namespace FixSitWPF.Views.Buttons
             this._ContentGrid = _ContentGrid;
             this.Content = "webcam";
             this.Click += WebCamButton_Click;
-            this.Background = new SolidColorBrush(Colors.Green);
+            this.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#168C64"));
         }
         private void WebCamButton_Click(object sender, RoutedEventArgs e)
         {

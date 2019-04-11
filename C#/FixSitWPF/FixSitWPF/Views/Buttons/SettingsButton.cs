@@ -17,7 +17,7 @@ namespace FixSitWPF.Views.Buttons
             this._ContentGrid = _ContentGrid;
             this.Content = "settings";
             this.Click += SettingsButton_Click;
-            this.Background = new SolidColorBrush(Colors.Orange);
+            this.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#168C64"));
         }
 
         private void SettingsButton_Click(object sender, RoutedEventArgs e)

@@ -17,7 +17,8 @@ namespace FixSitWPF.Views.Buttons
             this._ContentGrid = _ContentGrid;
             this.Content = "exercise";
             this.Click += ExerciseButton_Click;
-            this.Background = new SolidColorBrush(Colors.Red);
+            this.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#168C64"));
+
         }
 
         private void ExerciseButton_Click(object sender, RoutedEventArgs e)

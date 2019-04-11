@@ -12,7 +12,11 @@ def take_image(output_path):
     ret, frame = video_capture.read()
     # Close device
     video_capture.release()
-    cv2.imwrite(output_path + "frame.jpg", frame)  # save frame as JPEG file
+    try:
+        cv2.imwrite(output_path + "frame.jpg", frame)  # save frame as JPEG file
+    finally:
+        pass
+    return ret
 
 
 def initialize_socket():

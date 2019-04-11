@@ -8,7 +8,7 @@
         xmlns:views="clr-namespace:FixSitWPF.Views.Contents"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
+    <Grid Background="#2D2D2D">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="5*"/>

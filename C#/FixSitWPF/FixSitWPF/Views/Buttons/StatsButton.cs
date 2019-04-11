@@ -17,7 +17,7 @@ namespace FixSitWPF.Views.Buttons
             this._ContentGrid = _ContentGrid;
             this.Content = "stats";
             this.Click += StatsButton_Click;
-            this.Background = new SolidColorBrush(Colors.Blue);
+            this.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#168C64"));
         }
 
         private void StatsButton_Click(object sender, RoutedEventArgs e)

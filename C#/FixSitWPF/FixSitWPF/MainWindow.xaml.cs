@@ -41,8 +41,9 @@ namespace FixSitWPF
             FixSitWPF.Views.Buttons.QuitButton quit = new FixSitWPF.Views.Buttons.QuitButton();
             AppMenu.AddButton(quit);
             quit.Click += Quit_Click;
-            
-            
+
+            FixSitWPF.Controller.Controller c = new Controller.Controller();
+            //c.CreatePythonModel();
             
         }
 

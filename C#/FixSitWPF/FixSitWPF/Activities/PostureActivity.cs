@@ -19,6 +19,11 @@ namespace FixSitWPF.Activities
         private DataClient _Client;
         #endregion
 
+        public PostureActivity(DataClient client)
+        {
+            _Client = client;
+        }
+
         #region Properties
         public DataClient Client
         {
@@ -42,16 +47,15 @@ namespace FixSitWPF.Activities
 
         public void Start()
         {
-            //Dictionary<string, string> request = new Dictionary<string, string>()
-            //{
-            //    {"request","posture_status" }
-            //};
-            //JToken response = _Client.GetResponse(request.ToJson());
-            string balloonTipText = "Your posture is not good!";
-            //string balloonTipText = (response["answer"].ToString() == "bad" ? "Your posture is not good" + Environment.NewLine
-            //    +"Click here to fix it" : "Your posture is good!");
-            //response["answer"].ToString() == "bad"
-            if (true)
+            Dictionary<string, string> request = new Dictionary<string, string>()
+            {
+                {"request","posture_status" }
+            };
+            JToken response = _Client.GetResponse(request.ToJson());
+            //string balloonTipText = "Your posture is not good!";
+            string balloonTipText = (response["answer"].ToString() == "bad" ? "Your posture is not good" + Environment.NewLine
+                + "Click here to fix it" : "Your posture is good!");
+            if (response["answer"].ToString() == "bad")
             {
                 System.Windows.Application.Current.Dispatcher.Invoke(() =>
                 {
