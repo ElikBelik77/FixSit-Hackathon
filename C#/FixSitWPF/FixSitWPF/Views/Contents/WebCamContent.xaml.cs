@@ -20,6 +20,12 @@ namespace FixSitWPF.Views.Contents
     /// </summary>
     public partial class WebCamContent : UserControl
     {
+        private FixSitWPF.Networking.DataClient client;
+        /*public WebCamContent(FixSitWPF.Networking.DataClient client)
+        {
+            InitializeComponent();
+            this.client = client;
+        }*/
         public WebCamContent()
         {
             InitializeComponent();
