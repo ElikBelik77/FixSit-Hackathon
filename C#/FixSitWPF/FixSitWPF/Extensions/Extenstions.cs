@@ -10,11 +10,12 @@ namespace FixSitWPF.Extensions
 {
     public static class Extenstions
     {
-        public static JToken ToJson(this Dictionary<string, string> dict)
+        public static string ToJson(this Dictionary<string, string> dict)
         {
             var entries = dict.Select(d =>
-                string.Format("\"{0}\": {1}", d.Key, d.Value));
-            return (JToken)JsonConvert.SerializeObject("{" + string.Join(",", entries) + "}");
+                string.Format('"'+ "{0}"+'"'+":" + '"'+ "{1}" +'"', d.Key, d.Value));
+            Console.WriteLine("{" + string.Join(",", entries) + "}");
+            return "{" + string.Join(",", entries) + "}";
         }
     }
 }

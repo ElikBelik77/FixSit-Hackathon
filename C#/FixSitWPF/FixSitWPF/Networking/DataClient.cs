@@ -38,12 +38,11 @@ namespace FixSitWPF.Networking
 
         public DataClient(string ip, int port)
         {
-            _Socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             _IP = ip;
             _Port = port;
         }
 
-        private void SendRequest(JToken request)
+        private void SendRequest(string request)
         {
             string data = request.ToString().Length.ToString().PadLeft(5, '0') + request.ToString();
             _Socket.Send(Encoding.UTF8.GetBytes(data));
@@ -59,10 +58,15 @@ namespace FixSitWPF.Networking
             string message = Encoding.UTF8.GetString(messageBuffer);
             return (JObject)JsonConvert.DeserializeObject(message);
         }
-        public JObject GetResponse(JToken request)
+        public JObject GetResponse(string request)
         {
+            _Socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+
+            _Socket.Connect(new IPEndPoint(IPAddress.Parse(_IP), _Port));
             SendRequest(request);
-            return ReadResponse();
+            JObject response = ReadResponse();
+            _Socket.Close();
+            return response;
         }
 
 
