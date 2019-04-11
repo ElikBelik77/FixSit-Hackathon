@@ -39,11 +39,14 @@ if __name__ == '__main__':
                     succeed = utils.take_image(IMAGE_PATH)
                     if not succeed:
                         print(sys.stderr, 'could not take image - camera error')
-                        connection.send(f'{len(CAMERA_ERROR_ANSWER):{MSG_LEN}d}{CAMERA_ERROR_ANSWER}'.encode('utf-8'))
+                        connection.send(f'{len(CAMERA_ERROR_ANSWER):0{MSG_LEN}d}{CAMERA_ERROR_ANSWER}'.encode('utf-8'))
+                        break
                     result = posture_logic.main_logic(IMAGE_PATH, MODEL_PATH)
-                    connection.send(f"{len(result):{MSG_LEN}d}{result}".encode('utf-8'))
+                    print(result)
+                    print(f"{len(result):0{MSG_LEN}d}")
+                    connection.send(f"{len(result):0{MSG_LEN}d}{result}".encode('utf-8'))
                 else:
-                    connection.send(f'{len(ERROR_ANSWER):{MSG_LEN}d}{ERROR_ANSWER}'.encode('utf-8'))
+                    connection.send(f'{len(ERROR_ANSWER):0{MSG_LEN}d}{ERROR_ANSWER}'.encode('utf-8'))
         except Exception as e:
             print(sys.stderr, e)
         finally:

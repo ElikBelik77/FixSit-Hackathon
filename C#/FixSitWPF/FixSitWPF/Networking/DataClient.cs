@@ -51,12 +51,25 @@ namespace FixSitWPF.Networking
 
         private JObject ReadResponse()
         {
+            string message = "";
             byte[] messageLengthBuffer = new byte[10];
             _Socket.Receive(messageLengthBuffer);
             int messageLength = int.Parse(Encoding.UTF8.GetString(messageLengthBuffer));
-            byte[] messageBuffer = new byte[messageLength];
+            // System.Threading.Thread.Sleep(1000);
+            int count = messageLength / 5000;
+            byte[] messageBuffer;
+            while (count > 0)
+            {
+                messageBuffer = new byte[5000];
+                _Socket.Receive(messageBuffer);
+                message += Encoding.UTF8.GetString(messageBuffer);
+                count--;
+            }
+            messageBuffer = new byte[messageLength - 5000 * (messageLength / 5000)];
             _Socket.Receive(messageBuffer);
-            string message = Encoding.UTF8.GetString(messageBuffer);
+            
+            
+            message += Encoding.UTF8.GetString(messageBuffer);
             return (JObject)JsonConvert.DeserializeObject(message);
         }
         public JObject GetResponse(string request)

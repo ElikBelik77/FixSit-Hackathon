@@ -99,6 +99,8 @@ namespace FixSitWPF.Controller
         {
             this._Window.WebcamContent.Image = ConvertDrawingImageToWPFImage(image);
             this._Window.WebcamContent.Description = description;
+            this._Window.SetContent(this._Window.WebcamContent);
+            this._Window.Show();
         }
 
         private System.Windows.Controls.Image ConvertDrawingImageToWPFImage(System.Drawing.Image gdiImg)
