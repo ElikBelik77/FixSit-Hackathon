@@ -1,42 +1,16 @@
 # External lib
-import socket
 import sys
-import cv2
-
 
 # Internal lib
-import depth
-import posture_model_connection
-
-
-def take_image():
-    video_capture = cv2.VideoCapture(0)
-    # Check success
-    if not video_capture.isOpened():
-        raise Exception("Could not open video device")
-    # Read picture. ret === True on success
-    ret, frame = video_capture.read()
-    # Close device
-    video_capture.release()
-    cv2.imwrite("frame.jpg", frame)  # save frame as JPEG file
-
-
-
-def initialize_socket():
-    # Create a TCP/IP socket
-    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server_address = ('localhost', 10000)
-    print(sys.stderr, 'starting up on %s port %s' % server_address)
-    sock.bind(server_address)
-    return sock
-
-
+import posture_logic
+import utils
 
 
 POSTURE_REQUEST = "posture"
+IMAGE_PATH = ""
 
 if __name__ == '__main__':
-    sock = initialize_socket()
+    sock = utils.initialize_socket()
     sock.listen(1)
     while True:
         # Wait for a connection
@@ -46,11 +20,19 @@ if __name__ == '__main__':
             print(sys.stderr, 'connection from', client_address)
             # Receive the request
             while True:
-                request = connection.recv(16)
+                request = connection.recv(5)
+                if not request:
+                    print(sys.stderr, 'no more data from', client_address)
+                    break
+                size = int(request)
+                request = connection.recv(size)
+
                 if request == POSTURE_REQUEST:
-                    pass
+                    utils.take_image(IMAGE_PATH)
+                    result = posture_logic(IMAGE_PATH)
+                    connection.send(f"{len(result):05d} {result}".encode('utf-8'))
                 else:
-                    connection.send("Err")
+                    connection.send(f"00003 Err".encode('utf-8'))
         finally:
             # Clean up the connection
             connection.close()
