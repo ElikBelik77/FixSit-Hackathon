@@ -9,7 +9,7 @@ def check_for_function(general_dict, func_dict):
     for i in func_dict:
         coordinate_list = general_dict[i]
         chance = coordinate_list[2]
-        if chance < 0.1:
+        if chance < 0.001:
             condition = False
             break
     return condition

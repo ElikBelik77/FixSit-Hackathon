@@ -4,12 +4,12 @@ import math
 
 def depth(nose, chin, earl, earr):
     height = math.sqrt((nose[0]-chin[0])**2+(nose[1]-chin[1])**2)
-    width = math.sqrt((earl[0]-earr[0])**2+(earl[0]-earr[0])**2)
+    width = math.sqrt((earl[0]-earr[0])**2+(earl[1]-earr[1])**2)
     # Find factor of resizing
     f = 110/height
     width *= f
     # Find range
-    if 115 <= width <= 150:
+    if 115 <= width <= 135:
         return 0
     elif width < 115:
         return 1
@@ -35,9 +35,9 @@ def ears_to_shoulders(earl, earr, shoull, shoulr):
     dr = math.sqrt((earr[0] - shoulr[0]) ** 2 + (earr[1] - shoulr[1]) ** 2)
     averageDist=(dl+dr)/2
     # Classifying
-    if 190 <= averageDist <= 225:
+    if 195 <= averageDist <= 225:
         return 0
-    elif averageDist < 180:
+    elif averageDist < 195:
         return -1
     else:
         return 1
