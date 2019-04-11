@@ -23,10 +23,12 @@ namespace FixSitWPF.Activities
         private DataClient _Client;
         #endregion
 
+        #region Constructors
         public PostureActivity(DataClient client)
         {
             _Client = client;
         }
+        #endregion
 
         #region Properties
         public DataClient Client
@@ -88,11 +90,11 @@ namespace FixSitWPF.Activities
                     if (displayImage)
                     {
                         notification.BalloonTipClicked += (sender, e) =>
-                       {
+                        {    
                            Image modelImage = LoadImage(response["image"].ToString());
                            OnImageUpdate?.Invoke(modelImage, response["image"].ToString());
-                       //DO SOMETHING
-                   };
+                           //DO SOMETHING
+                        };
                     }
                     notification.ShowBalloonTip(5000);
                 });

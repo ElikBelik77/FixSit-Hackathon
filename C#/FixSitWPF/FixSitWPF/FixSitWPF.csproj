@@ -86,6 +86,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Activities\ExerciseActivity.cs" />
     <Compile Include="Views\Contents\ExerciseContent.xaml.cs">
       <DependentUpon>ExerciseContent.xaml</DependentUpon>
     </Compile>
@@ -169,6 +170,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Views\Resources\exercise1.gif" />
+    <Resource Include="Views\Resources\exercise2.gif" />
+    <Resource Include="Views\Resources\exercise3.gif" />
+    <Resource Include="Views\Resources\exercise4.gif" />
+    <Resource Include="Views\Resources\exercise5.gif" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
