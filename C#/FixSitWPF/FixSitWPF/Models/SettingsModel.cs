@@ -3,20 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.ComponentModel;
 namespace FixSitWPF.Models
 {
-    public class SettingsModel 
+    public class SettingsModel : INotifyPropertyChanged
     {
         
         #region Member Variables
-        private double _PostureTimeInterval;
-        private double _ExerciseTimeInterval;
-        private double _SoundPower;
+        private int _PostureTimeInterval;
+        private int _ExerciseTimeInterval;
         #endregion
 
         #region Constructors
-        
+        public event PropertyChangedEventHandler PropertyChanged;
         public SettingsModel()
         {
 
@@ -24,22 +23,20 @@ namespace FixSitWPF.Models
         #endregion
 
         #region Properties
-        public double SoundPowers
-        {
-            get { return _SoundPower; }
-            set { _SoundPower = value; }
-        }
-
-        public double ExerciseTimedoubleerval
+        public int ExerciseTimeInterval
         {
             get { return _ExerciseTimeInterval; }
-            set { _ExerciseTimeInterval = value; }
+            set { _ExerciseTimeInterval = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("ExerciseTimeInterval"));
+            }
         }
 
-        public double Posturedoubleerval
+        public int PostureTimeInterval
         {
             get { return _PostureTimeInterval; }
-            set { _PostureTimeInterval = value; }
+            set { _PostureTimeInterval = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("PostureTimeInterval"));
+            }
         }
         #endregion
     }

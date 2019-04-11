@@ -86,22 +86,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Views\Buttons\ExerciseButton.cs" />
-    <Compile Include="Views\Buttons\FixSitButton.cs" />
-    <Compile Include="Views\Buttons\QuitButton.cs" />
-    <Compile Include="Views\Buttons\SettingsButton.cs" />
-    <Compile Include="Views\Buttons\StatsButton.cs" />
+    <Compile Include="Activities\ExerciseActivity.cs" />
     <Compile Include="Views\Contents\ExerciseContent.xaml.cs">
       <DependentUpon>ExerciseContent.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Contents\FixSitContent.xaml.cs">
       <DependentUpon>FixSitContent.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Contents\MyMenu.xaml.cs">
-      <DependentUpon>MyMenu.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Buttons\MyButton.cs" />
-    <Compile Include="Views\Buttons\WebCamButton.cs" />
     <Compile Include="Views\Contents\SettingsContent.xaml.cs">
       <DependentUpon>SettingsContent.xaml</DependentUpon>
     </Compile>
@@ -134,10 +125,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Contents\FixSitContent.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Contents\MyMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -183,6 +170,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Views\Resources\exercise1.gif" />
+    <Resource Include="Views\Resources\exercise2.gif" />
+    <Resource Include="Views\Resources\exercise3.gif" />
+    <Resource Include="Views\Resources\exercise4.gif" />
+    <Resource Include="Views\Resources\exercise5.gif" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

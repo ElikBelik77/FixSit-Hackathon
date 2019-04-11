@@ -17,6 +17,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using FixSitWPF.Views.Contents;
+using FixSitWPF.Views;
 
 namespace FixSitWPF
 {
@@ -25,27 +26,85 @@ namespace FixSitWPF
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
+        #region Member Variable
         private System.Windows.Forms.NotifyIcon _NotifyIcon;
+        private WebCamContent _WebcamContent;
+        private FixSitContent _FixSitContent;
+        #endregion
 
+        #region Properties        
+        /// <summary>
+        /// Gets or sets the content of the webcam.
+        /// </summary>
+        /// <value>
+        /// The content of the webcam.
+        /// </value>
+        public WebCamContent WebcamContent
+        {
+            get { return _WebcamContent; }
+            set { _WebcamContent = value; }
+        }
+        #endregion
+
+
+        #region Constructors        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MainWindow"/> class.
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
+            _WebcamContent = new WebCamContent();
+            _FixSitContent = new FixSitContent();
+            SetContent(_FixSitContent);
+            FixSitWPF.Controller.Controller controller = new FixSitWPF.Controller.Controller(this);
+
             _NotifyIcon = new System.Windows.Forms.NotifyIcon();
             _NotifyIcon.Icon = System.Drawing.SystemIcons.Application;
             _NotifyIcon.Click += _NotifyIcon_Click;
-            AppMenu.AddButton(new FixSitWPF.Views.Buttons.FixSitButton(Display));
-            AppMenu.AddButton(new FixSitWPF.Views.Buttons.WebCamButton(Display));
-            AppMenu.AddButton(new FixSitWPF.Views.Buttons.ExerciseButton(Display));
-            AppMenu.AddButton(new FixSitWPF.Views.Buttons.StatsButton(Display));
-            AppMenu.AddButton(new FixSitWPF.Views.Buttons.SettingsButton(Display));
-            FixSitWPF.Views.Buttons.QuitButton quit = new FixSitWPF.Views.Buttons.QuitButton();
-            AppMenu.AddButton(quit);
-            quit.Click += Quit_Click;
+            FixSitButton.Click += (sender, e) =>
+            {
+                SetContent(_FixSitContent);
+            };
 
-            FixSitWPF.Controller.Controller c = new Controller.Controller();
+            WebcamButton.Click += (sender, e) => {
+                SetContent(_WebcamContent);
+            };
+
+            StatisticsButton.Click += (sender, e) => {
+                SetContent(new StatsContent());
+            };
+
+            ExerciseButton.Click += (sender, e) =>
+            {
+                SetContent(new ExerciseContent());
+            };
+
+            SettingsButton.Click += (sender, e) =>
+            {
+                SetContent(new SettingsContent(controller.SettingsModel));
+            };
+            
+            QuitButton.Click += Quit_Click;
+
+            //FixSitWPF.Controller.Controller c = new Controller.Controller();
             //c.CreatePythonModel();
+
+        }
+        #endregion
+
+
+        /// <summary>
+        /// Sets the content of the main part of the main window.
+        /// </summary>
+        /// <param name="control">The control.</param>
+        public void SetContent(System.Windows.Controls.UserControl control)
+        {
+            Display.Children.Clear();
+            Display.Children.Add(control);
             
         }
+        
 
         private void _NotifyIcon_Click(object sender, EventArgs e)
         {
@@ -57,14 +116,12 @@ namespace FixSitWPF
         {
             if (WindowState == WindowState.Minimized)
             {
-                
                 _NotifyIcon.Visible = false;
             }
 
-            else if (WindowState.Normal== this.WindowState)
+            else if (WindowState.Normal == this.WindowState)
             {
                 _NotifyIcon.Visible = true;
-
                 this.Hide();
             }
         }

@@ -7,14 +7,38 @@
              xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="Azure" x:Name="FixSitContentGrid">
+    <Grid x:Name="FixSitContentGrid" Background="#2D2D2D">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
-        <controls:Tile Title="hello" Width ="100" Height="100" Count="1"/>
+
+        <Image Stretch="Fill" RenderOptions.BitmapScalingMode="Fant"
+                   
+                    Width="250"
+                    Height="110"
+                    VerticalAlignment="Bottom"
+                    HorizontalAlignment="Center">
+            <Image.Source>
+                <BitmapImage UriSource="Asset 1.png"/>
+            </Image.Source>
+        </Image>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#4EA83E" FontSize="25" >Fix your posture!</TextBlock>
+            <TextBlock Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#4EA83E" FontSize="25" >We alert if your posture is off</TextBlock>
+            <TextBlock Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#4EA83E" FontSize="25">and tell you how to FixSit!</TextBlock>
+        </Grid>
+        
+
+
 
     </Grid>
 </UserControl>

@@ -3,11 +3,25 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:FixSitWPF.Views"
+             xmlns:local="clr-namespace:FixSitWPF.Views.Contents"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="Bisque">
-        <Label>webcam</Label>
-            
+    <Grid Background="#2D2D2D">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Canvas Grid.Row="0" x:Name="cv">
+            <Image x:Name="ImageView" Stretch="Fill" RenderOptions.BitmapScalingMode="Fant"
+                   
+                    Width="{Binding ElementName=cv, Path=ActualWidth}"
+                    Height="{Binding ElementName=cv, Path=ActualHeight}"
+                    VerticalAlignment="Top"
+                    Margin="0,0,0,0"
+                    HorizontalAlignment="Center">
+                
+            </Image>
+        </Canvas>
+        <Label Grid.Row="1"  HorizontalAlignment="Center">here we can write comments about the picture</Label>
     </Grid>
 </UserControl>
