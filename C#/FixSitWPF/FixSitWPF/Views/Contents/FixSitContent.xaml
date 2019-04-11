@@ -23,7 +23,7 @@
                     VerticalAlignment="Bottom"
                     HorizontalAlignment="Center">
             <Image.Source>
-                <BitmapImage UriSource="fixSit logo.png"/>
+                <BitmapImage UriSource="Asset 1.png"/>
             </Image.Source>
         </Image>
         <Grid Grid.Row="1">
@@ -32,8 +32,9 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#4EA83E">Fix your posture!</TextBlock>
-
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#4EA83E" FontSize="25" >Fix your posture!</TextBlock>
+            <TextBlock Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#4EA83E" FontSize="25" >We alert if your posture is off</TextBlock>
+            <TextBlock Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#4EA83E" FontSize="25">and tell you how to FixSit!</TextBlock>
         </Grid>
         
 

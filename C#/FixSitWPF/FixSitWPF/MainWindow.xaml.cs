@@ -29,6 +29,7 @@ namespace FixSitWPF
         #region Member Variable
         private System.Windows.Forms.NotifyIcon _NotifyIcon;
         private WebCamContent _WebcamContent;
+        private FixSitContent _FixSitContent;
         #endregion
 
         #region Properties        
@@ -54,14 +55,16 @@ namespace FixSitWPF
         {
             InitializeComponent();
             _WebcamContent = new WebCamContent();
-            FixSitWPF.Controller.Controller controller = new FixSitWPF.Controller.Controller();
+            _FixSitContent = new FixSitContent();
+            SetContent(_FixSitContent);
+            FixSitWPF.Controller.Controller controller = new FixSitWPF.Controller.Controller(this);
 
             _NotifyIcon = new System.Windows.Forms.NotifyIcon();
             _NotifyIcon.Icon = System.Drawing.SystemIcons.Application;
             _NotifyIcon.Click += _NotifyIcon_Click;
             FixSitButton.Click += (sender, e) =>
             {
-                SetContent(new FixSitContent());
+                SetContent(_FixSitContent);
             };
 
             WebcamButton.Click += (sender, e) => {

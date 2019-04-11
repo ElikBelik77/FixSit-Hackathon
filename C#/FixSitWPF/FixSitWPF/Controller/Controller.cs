@@ -89,7 +89,7 @@ namespace FixSitWPF.Controller
             {
                 { poseActivity, 1 }
             });
-            _ActivityScheduler.Start();
+            //_ActivityScheduler.Start();
             _Window = win;
         }
 
