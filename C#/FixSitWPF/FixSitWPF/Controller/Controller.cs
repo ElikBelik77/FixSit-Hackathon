@@ -1,4 +1,6 @@
-﻿using FixSitWPF.Models;
+﻿using FixSitWPF.Activities;
+using FixSitWPF.Models;
+using FixSitWPF.Networking;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -13,6 +15,13 @@ namespace FixSitWPF.Controller
         #region Member Variables
         private SettingsModel _SettingsModel;
         private ActivityScheduler _ActivityScheduler;
+        private DataClient _Client;
+
+        public DataClient Client
+        {
+            get { return _Client; }
+            set { _Client = value; }
+        }
 
         public ActivityScheduler ActivityScheduler
         {
@@ -34,7 +43,12 @@ namespace FixSitWPF.Controller
         public Controller()
         {
             _SettingsModel = new SettingsModel();
-            //_ActivityScheduler = new ActivityScheduler(SettingsModel);
+            _Client = new DataClient("127.0.0.1", 10000);
+            _ActivityScheduler = new ActivityScheduler(new Dictionary<IActivity, int>()
+            {
+                { new PostureActivity(_Client),1 }
+            });
+            _ActivityScheduler.Start();
 
         }
         #endregion
