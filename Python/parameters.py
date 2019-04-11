@@ -9,7 +9,7 @@ def depth(nose, chin, earl, earr):
     f = 110/height
     width *= f
     # Find range
-    if 115 <= width <= 135:
+    if 115 <= width <= 150:
         return 0
     elif width < 115:
         return 1
