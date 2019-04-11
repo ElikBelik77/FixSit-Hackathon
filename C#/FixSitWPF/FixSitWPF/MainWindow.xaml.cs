@@ -30,6 +30,7 @@ namespace FixSitWPF
         private System.Windows.Forms.NotifyIcon _NotifyIcon;
         private WebCamContent _WebcamContent;
         private FixSitContent _FixSitContent;
+        public ExerciseContent _ExerciseContent;
         #endregion
 
         #region Properties        
@@ -56,6 +57,7 @@ namespace FixSitWPF
             InitializeComponent();
             _WebcamContent = new WebCamContent();
             _FixSitContent = new FixSitContent();
+            _ExerciseContent = new ExerciseContent();
             SetContent(_FixSitContent);
             FixSitWPF.Controller.Controller controller = new FixSitWPF.Controller.Controller(this);
 
@@ -77,7 +79,7 @@ namespace FixSitWPF
 
             ExerciseButton.Click += (sender, e) =>
             {
-                SetContent(new ExerciseContent());
+                SetContent(_ExerciseContent);
             };
 
             SettingsButton.Click += (sender, e) =>
@@ -105,7 +107,7 @@ namespace FixSitWPF
             
         }
         
-
+        
         private void _NotifyIcon_Click(object sender, EventArgs e)
         {
             this.WindowState = WindowState.Normal;
