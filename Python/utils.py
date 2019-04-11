@@ -1,5 +1,6 @@
 import cv2
 import socket
+import sys
 
 
 def take_image(output_path):

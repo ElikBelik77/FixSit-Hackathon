@@ -1,13 +1,16 @@
 # External lib
 import sys
+import json
+
 
 # Internal lib
 import posture_logic
 import utils
 
 
-POSTURE_REQUEST = "posture"
-IMAGE_PATH = ""
+POSTURE_REQUEST = "posture_request"
+POSTURE_STATUS = "posture_status"
+IMAGE_PATH = r"\Users\Naama\Desktop\fixSitting"
 
 if __name__ == '__main__':
     sock = utils.initialize_socket()
@@ -26,13 +29,13 @@ if __name__ == '__main__':
                     break
                 size = int(request)
                 request = connection.recv(size)
-
-                if request == POSTURE_REQUEST:
+                request = json.loads(request)
+                if request[POSTURE_REQUEST] == POSTURE_REQUEST:
                     utils.take_image(IMAGE_PATH)
-                    result = posture_logic(IMAGE_PATH)
-                    connection.send(f"{len(result):05d} {result}".encode('utf-8'))
+                    result = posture_logic.main_logic(IMAGE_PATH)
+                    connection.send(f"{len(result):05d}{result}".encode('utf-8'))
                 else:
-                    connection.send(f"00003 Err".encode('utf-8'))
+                    connection.send(f"00003Err".encode('utf-8'))
         finally:
             # Clean up the connection
             connection.close()
