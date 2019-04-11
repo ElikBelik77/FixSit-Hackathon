@@ -24,7 +24,7 @@ if __name__ == '__main__':
             # Receive the request
             while True:
                 request = connection.recv(5)
-                if not request:
+                if not request or int(request) == 0:
                     print(sys.stderr, 'no more data from', client_address)
                     break
                 size = int(request)
