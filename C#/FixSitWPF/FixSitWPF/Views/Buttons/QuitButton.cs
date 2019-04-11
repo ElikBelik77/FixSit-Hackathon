@@ -20,7 +20,7 @@ namespace FixSitWPF.Views.Buttons
            
             
             this.Content = "quit";
-            this.Background = new SolidColorBrush(Colors.Pink);
+            this.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#168C64"));
         }
 
         public void ShowContent(Grid grid)

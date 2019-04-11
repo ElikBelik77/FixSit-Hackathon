@@ -10,7 +10,7 @@ import utils
 
 POSTURE_REQUEST = "request"
 POSTURE_STATUS = "posture_status"
-IMAGE_PATH = r""
+IMAGE_PATH = r"\Users\Naama\Desktop\fixSitting"
 
 if __name__ == '__main__':
     sock = utils.initialize_socket()
@@ -24,7 +24,7 @@ if __name__ == '__main__':
             # Receive the request
             while True:
                 request = connection.recv(5)
-                if not request:
+                if not request or int(request) == 0:
                     print(sys.stderr, 'no more data from', client_address)
                     break
                 size = int(str(request.decode('utf-8')))
