@@ -54,6 +54,7 @@ def main_logic(image_path, model_path):
         states.append(parameters.chin_to_neck(func_coordinate[0], func_coordinate[1]))
     else:
         states.append(2)
+        correct_points.append(0)
 
     for_func_ears_shoulders = ["RShoulder", "LShoulder", "REar", "LEar"]
 
@@ -65,10 +66,10 @@ def main_logic(image_path, model_path):
                                                    func_coordinate[1], func_coordinate[0]))
     else:
         states.append(2)
-
+        correct_points.append(0)
 
     print(states)
-
+    print(correct_points)
     count = 0
     corrupt = []
     correct = []

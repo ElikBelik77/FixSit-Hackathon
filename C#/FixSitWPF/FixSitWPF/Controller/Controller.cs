@@ -87,9 +87,9 @@ namespace FixSitWPF.Controller
             poseActivity.OnImageUpdate += PoseActivity_OnImageUpdate;
             _ActivityScheduler = new ActivityScheduler(new Dictionary<IActivity, int>()
             {
-                { poseActivity, 1 }
+                { poseActivity, 5 }
             });
-            //_ActivityScheduler.Start();
+            _ActivityScheduler.Start();
             _Window = win;
         }
 
@@ -124,7 +124,8 @@ namespace FixSitWPF.Controller
         {
             string[] splitDirData = Environment.CurrentDirectory.Split(new[] { @"\" }, StringSplitOptions.None);
             string pythonModelPath = String.Join("/",splitDirData.Take(splitDirData.Length-5))+ @"/Python/main.py";
-            Process.Start(pythonModelPath);
+
+            Process.Start(@"C:\Users\Naama\AppData\Local\Programs\Python\Python36-32\python.exe",pythonModelPath);
         }
     }
 }
