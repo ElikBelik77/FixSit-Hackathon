@@ -12,15 +12,15 @@ def depth(nose, chin, earl, earr):
     earl[0] *= 4
     earr[1] *= 4.09
     earr[0] *= 4
-    height = math.sqrt((nose[0]-chin[0])**2+(nose[1]-chin[1])**2)
+    height = 2*math.sqrt((nose[0]-chin[0])**2+(nose[1]-chin[1])**2)
     width = math.sqrt((earl[0]-earr[0])**2+(earl[0]-earr[0])**2)
     # Find factor of resizing
     f = 330/height
     width *= f
     # Find range
-    if 190 <= width <= 225:
+    if 200 <= width <= 250:
         return 0
-    elif width < 190:
+    elif width < 200:
         return 1
     else:
         return -1
