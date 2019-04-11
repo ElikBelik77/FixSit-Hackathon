@@ -100,7 +100,7 @@ namespace FixSitWPF.Activities
                 });
                
             }
-
+            OnFinish?.Invoke(this);
             //REMOVE THIS !
         }
 

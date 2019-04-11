@@ -92,6 +92,7 @@ namespace FixSitWPF.Controller
             ExerciseActivity execActivity = new ExerciseActivity(this);
             execActivity.OnExerciseStart += (paths) =>
             {
+                win.Show();
                 win.SetContent(win._ExerciseContent);
                 win._ExerciseContent.ShowGifs(paths);
             };
@@ -102,16 +103,29 @@ namespace FixSitWPF.Controller
                 //{ poseActivity, 1 }
                 {execActivity,5}
             });
-            _ActivityScheduler.Start();
+            
             _Window = win;
+            _Window.OnMaximize += _Window_OnMaximize;
+            _Window.OnMinimize += _Window_OnMinimize;
         }
 
-        
+        private void _Window_OnMinimize()
+        {
+            _ActivityScheduler.Resume();
+        }
+
+        private void _Window_OnMaximize()
+        {
+            _ActivityScheduler.Pause();
+        }
+
+
 
 
 
 
         #endregion
+
         private void PoseActivity_OnImageUpdate(Image image, string description)
         {
             this._Window.WebcamContent.Image = ConvertDrawingImageToWPFImage(image);
@@ -144,8 +158,11 @@ namespace FixSitWPF.Controller
             string[] splitDirData = Environment.CurrentDirectory.Split(new[] { @"\" }, StringSplitOptions.None);
             string pythonModelPath = String.Join("/",splitDirData.Take(splitDirData.Length-5))+ @"/Python/main.py";
 
-            Process.Start(@"C:\Users\Naama\AppData\Local\Programs\Python\Python36-32\python.exe",pythonModelPath);
+            //Process.Start(@"C:\Users\Naama\AppData\Local\Programs\Python\Python36-32\python.exe",pythonModelPath);
         }
+
+
+
         
     }
 }

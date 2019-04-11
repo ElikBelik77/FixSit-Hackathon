@@ -47,7 +47,6 @@ namespace FixSitWPF
         }
         #endregion
 
-
         #region Constructors        
         /// <summary>
         /// Initializes a new instance of the <see cref="MainWindow"/> class.
@@ -94,6 +93,9 @@ namespace FixSitWPF
         }
         #endregion
 
+        public delegate void FocusEvent();
+        public event FocusEvent OnMinimize;
+        public event FocusEvent OnMaximize;
 
         /// <summary>
         /// Sets the content of the main part of the main window.
@@ -118,11 +120,13 @@ namespace FixSitWPF
             if (WindowState == WindowState.Minimized)
             {
                 _NotifyIcon.Visible = false;
+                OnMaximize?.Invoke();
             }
 
             else if (WindowState.Normal == this.WindowState)
             {
                 _NotifyIcon.Visible = true;
+                OnMinimize?.Invoke();
                 this.Hide();
             }
         }

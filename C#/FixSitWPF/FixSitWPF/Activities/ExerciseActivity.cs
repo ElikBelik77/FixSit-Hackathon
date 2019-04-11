@@ -41,40 +41,55 @@ namespace FixSitWPF.Activities
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
-                Random rnd = new Random();
-                int itemsNeeded = 3;
-                List<string> gifs = new List<string>(itemsNeeded);
-                List<int> numbers = new List<int>(itemsNeeded);
-                List<int> availableNumbers = new List<int>();
-                int n;
-                for(int i =0; i < 5; i ++)
+                var notification = new System.Windows.Forms.NotifyIcon()
                 {
-                    availableNumbers.Add(i + 1);
-                }
-                for (int i = 0; i < itemsNeeded; i++)
-                {
-                    int index = rnd.Next(0, availableNumbers.Count);
-                    numbers.Add(availableNumbers[index]);
-                    availableNumbers.Remove(numbers[i]);
-                }
+                    Visible = true,
+                    Icon = System.Drawing.SystemIcons.Information,
+                    // BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info,
+                    BalloonTipTitle = "FixSit",
+                    BalloonTipText = "We have some exercises for you",
+                };
+                notification.ShowBalloonTip(5000);
+                notification.BalloonTipClicked += (sender, e) =>
+                    {
 
-                string[] splitDirData = Environment.CurrentDirectory.Split(new[] { @"\" }, StringSplitOptions.None);
-                string pathToResources = String.Join("/", splitDirData.Take(splitDirData.Length - 2)) + "/Views/Resources/exercise";
-                Console.WriteLine(pathToResources);
-                string Sgif1 = pathToResources + numbers[0].ToString() + ".gif";
-                string Sgif2 = pathToResources + numbers[1].ToString() + ".gif";
-                string Sgif3 = pathToResources + numbers[2].ToString() + ".gif";
-                gifs.Add(Sgif1);
-                gifs.Add(Sgif2);
-                gifs.Add(Sgif3);
-                OnExerciseStart?.Invoke(gifs);
 
+                        Random rnd = new Random();
+                        int itemsNeeded = 3;
+                        List<string> gifs = new List<string>(itemsNeeded);
+                        List<int> numbers = new List<int>(itemsNeeded);
+                        List<int> availableNumbers = new List<int>();
+                        int n;
+                        for (int i = 0; i < 5; i++)
+                        {
+                            availableNumbers.Add(i + 1);
+                        }
+                        for (int i = 0; i < itemsNeeded; i++)
+                        {
+                            int index = rnd.Next(0, availableNumbers.Count);
+                            numbers.Add(availableNumbers[index]);
+                            availableNumbers.Remove(numbers[i]);
+                        }
+
+                        string[] splitDirData = Environment.CurrentDirectory.Split(new[] { @"\" }, StringSplitOptions.None);
+                        string pathToResources = String.Join("/", splitDirData.Take(splitDirData.Length - 2)) + "/Views/Resources/exercise";
+                        Console.WriteLine(pathToResources);
+                        string Sgif1 = pathToResources + numbers[0].ToString() + ".gif";
+                        string Sgif2 = pathToResources + numbers[1].ToString() + ".gif";
+                        string Sgif3 = pathToResources + numbers[2].ToString() + ".gif";
+                        gifs.Add(Sgif1);
+                        gifs.Add(Sgif2);
+                        gifs.Add(Sgif3);
+                        OnExerciseStart?.Invoke(gifs);
+                        //DO SOMETHING
+                    };
             });
+            OnFinish.Invoke(this);
         }
 
         public void Stop()
         {
-            
+
         }
     }
 }
