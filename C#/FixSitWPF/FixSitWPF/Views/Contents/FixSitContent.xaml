@@ -7,14 +7,37 @@
              xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="Azure" x:Name="FixSitContentGrid">
+    <Grid x:Name="FixSitContentGrid" Background="#2D2D2D">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
-        <controls:Tile Title="hello" Width ="100" Height="100" Count="1"/>
+
+        <Image Stretch="Fill" RenderOptions.BitmapScalingMode="Fant"
+                   
+                    Width="250"
+                    Height="110"
+                    VerticalAlignment="Bottom"
+                    HorizontalAlignment="Center">
+            <Image.Source>
+                <BitmapImage UriSource="fixSit logo.png"/>
+            </Image.Source>
+        </Image>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#4EA83E">Fix your posture!</TextBlock>
+
+        </Grid>
+        
+
+
 
     </Grid>
 </UserControl>
