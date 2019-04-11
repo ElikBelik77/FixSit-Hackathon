@@ -144,7 +144,7 @@ namespace FixSitWPF.Controller
             string[] splitDirData = Environment.CurrentDirectory.Split(new[] { @"\" }, StringSplitOptions.None);
             string pythonModelPath = String.Join("/",splitDirData.Take(splitDirData.Length-5))+ @"/Python/main.py";
 
-            Process.Start(@"C:\Users\Naama\AppData\Local\Programs\Python\Python36-32\python.exe",pythonModelPath);
+            //Process.Start(@"C:\Users\Naama\AppData\Local\Programs\Python\Python36-32\python.exe",pythonModelPath);
         }
         
     }
