@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid x:Name="Grid" Background="Red">
-        <StackPanel x:Name="Stack" Background="Aqua">
+        <StackPanel x:Name="Stack" Background="#444444">
             <Label>hi</Label>
         </StackPanel>
         

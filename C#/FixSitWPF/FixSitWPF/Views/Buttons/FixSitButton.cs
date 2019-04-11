@@ -18,7 +18,7 @@ namespace FixSitWPF.Views.Buttons
             this.content_grid = content_grid;
             this.Content = "fixsit";
             this.Click += FixSitButton_Click;
-            this.Background = new SolidColorBrush(Colors.Yellow);
+            this.Background = (SolidColorBrush)(new BrushConverter().ConvertFrom("#168C64"));
         }
 
         private void FixSitButton_Click(object sender, RoutedEventArgs e)
