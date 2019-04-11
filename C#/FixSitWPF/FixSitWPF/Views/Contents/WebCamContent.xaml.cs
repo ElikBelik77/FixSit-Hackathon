@@ -61,8 +61,7 @@ namespace FixSitWPF.Views.Contents
         {
             
             set {
-                DrawingCanvas.Children.Clear();
-                DrawingCanvas.Children.Add(value);
+                ImageView.Source = value.Source;
             }
         }
         #endregion
