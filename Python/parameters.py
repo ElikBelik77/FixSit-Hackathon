@@ -17,18 +17,6 @@ def depth(nose, chin, earl, earr):
         return -1
 
 
-def ears_to_shoulders(earl, earr, shoull, shoulr):
-    dl = math.sqrt((earl[0]-shoull[0])**2+(earl[1]-shoull[1])**2)
-    dr = math.sqrt((earr[0] - shoulr[0]) ** 2 + (earr[1] - shoulr[1]) ** 2)
-    averageDist=(dl+dr)/2
-    # Classifying
-    if  180<= averageDist <= 225:
-        return 0
-    elif averageDist < 180:
-        return -1
-    else:
-        return 1
-
 
 def chin_to_neck(chin, neck):
     d = math.sqrt((chin[0]-neck[0])**2+(chin[1]-neck[1])**2)
@@ -39,4 +27,18 @@ def chin_to_neck(chin, neck):
         return 1
     else:
         return -1
+
+
+
+def ears_to_shoulders(earl, earr, shoull, shoulr):
+    dl = math.sqrt((earl[0]-shoull[0])**2+(earl[1]-shoull[1])**2)
+    dr = math.sqrt((earr[0] - shoulr[0]) ** 2 + (earr[1] - shoulr[1]) ** 2)
+    averageDist=(dl+dr)/2
+    # Classifying
+    if 190 <= averageDist <= 225:
+        return 0
+    elif averageDist < 180:
+        return -1
+    else:
+        return 1
 

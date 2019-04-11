@@ -100,6 +100,6 @@ def main_logic(image_path, model_path):
 
 
     # print(body_dict)
-# if __name__ == '__main__':
-#     utils.take_image(r"C:\Users\Naama\Desktop\fixSitting")
-#     main_logic(r"C:\Users\Naama\Desktop\fixSitting", r"C:\Users\Naama\Downloads\openpose-1.4.0-win64-cpu-binaries\openpose-1.4.0-win64-cpu-binaries")
+if __name__ == '__main__':
+    utils.take_image(r"C:\Users\Naama\Desktop\fixSitting")
+    main_logic(r"C:\Users\Naama\Desktop\fixSitting", r"C:\Users\Naama\Downloads\openpose-1.4.0-win64-cpu-binaries\openpose-1.4.0-win64-cpu-binaries")
