@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FixSitWPF.Networking;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,8 @@ namespace FixSitWPF
         public MainWindow()
         {
             InitializeComponent();
+            DataClient client = new DataClient("127.0.0.1", 1001);
+            Console.WriteLine(client.GetResponse("hello"));
         }
     }
 }
