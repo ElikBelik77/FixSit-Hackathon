@@ -1,4 +1,6 @@
-﻿using FixSitWPF.Networking;
+﻿using FixSitWPF.Activities;
+using FixSitWPF.Controller;
+using FixSitWPF.Networking;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using FixSitWPF.Extensions;
 namespace FixSitWPF
 {
     /// <summary>
@@ -24,8 +26,6 @@ namespace FixSitWPF
         public MainWindow()
         {
             InitializeComponent();
-            DataClient client = new DataClient("127.0.0.1", 1001);
-            Console.WriteLine(client.GetResponse("hello"));
         }
     }
 }

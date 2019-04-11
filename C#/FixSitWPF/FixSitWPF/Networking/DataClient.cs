@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
-
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 namespace FixSitWPF.Networking
 {
     public class DataClient
@@ -33,7 +34,7 @@ namespace FixSitWPF.Networking
             get { return _CommunicationThread; }
             set { _CommunicationThread = value; }
         }
-
+          
 
         public DataClient(string ip, int port)
         {
@@ -42,14 +43,26 @@ namespace FixSitWPF.Networking
             _Port = port;
         }
 
-
-        public string GetResponse(string request)
+        private void SendRequest(JToken request)
         {
-            _Socket.Connect(new IPEndPoint(IPAddress.Parse(_IP), _Port));
-            _Socket.Send(Encoding.UTF8.GetBytes("hello"));
-            byte[] message = new byte[5];
-            _Socket.Receive(message);
-            return Encoding.UTF8.GetString(message);
+            string data = request.ToString().Length.ToString().PadLeft(5, '0') + request.ToString();
+            _Socket.Send(Encoding.UTF8.GetBytes(data));
+        }
+
+        private JObject ReadResponse()
+        {
+            byte[] messageLengthBuffer = new byte[5];
+            _Socket.Receive(messageLengthBuffer);
+            int messageLength = int.Parse(Encoding.UTF8.GetString(messageLengthBuffer));
+            byte[] messageBuffer = new byte[messageLength];
+            _Socket.Receive(messageBuffer);
+            string message = Encoding.UTF8.GetString(messageBuffer);
+            return (JObject)JsonConvert.DeserializeObject(message);
+        }
+        public JObject GetResponse(JToken request)
+        {
+            SendRequest(request);
+            return ReadResponse();
         }
 
 

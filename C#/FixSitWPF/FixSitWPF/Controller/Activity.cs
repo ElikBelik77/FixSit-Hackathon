@@ -13,5 +13,7 @@ namespace FixSitWPF.Controller
         void Start();
         void Stop();
         event ActivityEventArgs OnFinish;
+        int GetPriority();
+        string GetIdentifier();
     }
 }
