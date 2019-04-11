@@ -32,7 +32,7 @@ if __name__ == '__main__':
                 request = json.loads(request)
                 if request[POSTURE_REQUEST] == POSTURE_REQUEST:
                     utils.take_image(IMAGE_PATH)
-                    result = posture_logic(IMAGE_PATH)
+                    result = posture_logic.main_logic(IMAGE_PATH)
                     connection.send(f"{len(result):05d} {result}".encode('utf-8'))
                 else:
                     connection.send(f"00003 Err".encode('utf-8'))
