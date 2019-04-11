@@ -89,17 +89,12 @@ def main_logic(image_path, model_path):
     print(corrupt)
     print(correct)
 
-    utils.draw_circles(image_path + r"\frame.jpg", corrupt, 40, 0.4, 'r')
-    utils.draw_circles(image_path + r"\frame.jpg", correct, 40, 0.4, 'g')
+    utils.draw_circles(image_path + r"\frame.jpg", corrupt, 20, 0.4, 'r')
+    utils.draw_circles(image_path + r"\frame.jpg", correct, 20, 0.4, 'g')
 
     if len(corrupt) > 0:
         with open(image_path + r"\frame.jpg", "rb") as image_file:
-            tmp = '{ "answer":"bad", "image":"' + base64.b64encode(image_file.read()).decode("utf-8") + '"}'
-            print(tmp)
-            print(f"{len(tmp):0{10}d}")
-            return tmp
-
-
+            return '{ "answer":"bad", "image":"' + base64.b64encode(image_file.read()).decode("utf-8") + '"}'
     else:
         return '{ "answer":"good" }'
 
