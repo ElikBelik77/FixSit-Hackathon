@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.ComponentModel;
 
 namespace FixSitWPF.Views.Contents
 {
@@ -22,10 +23,11 @@ namespace FixSitWPF.Views.Contents
     /// </summary>
     public partial class SettingsContent : UserControl
     {
-        public SettingsContent()
+        public SettingsContent(FixSitWPF.Models.SettingsModel settings)
         {
             InitializeComponent();
+            DataContext = settings;
         }
-
     }
+       
 }

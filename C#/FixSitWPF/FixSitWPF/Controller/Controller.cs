@@ -48,7 +48,7 @@ namespace FixSitWPF.Controller
             {
                 { new PostureActivity(_Client),1 }
             });
-            _ActivityScheduler.Start();
+            //_ActivityScheduler.Start();
 
         }
         #endregion

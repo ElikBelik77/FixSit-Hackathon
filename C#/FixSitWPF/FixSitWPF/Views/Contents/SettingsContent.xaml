@@ -18,10 +18,33 @@
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Label>Coose Time Intervals:</Label>
-        <Label Grid.Row="1">Exercise:</Label>
-        <Label Grid.Row="2">Pose:</Label>
-        <Slider Grid.Row="1" Grid.Column="1" Minimum="30" Maximum="45" TickPlacement="BottomRight"></Slider>
-        <Slider Grid.Row="2" Grid.Column="1" Minimum="15" Maximum="45" TickPlacement="BottomRight"></Slider>
+        <Label Foreground="White">Choose Time Intervals:</Label>
+        <Label Grid.Row="1" Foreground="White">Exercise:</Label>
+        <Label Grid.Row="2" Foreground="White">Pose:</Label>
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Slider Minimum="30" Maximum="45" TickPlacement="BottomRight" x:Name="ExerciseS"
+                Value="{Binding ExerciseTimeInterval, Mode=TwoWay}"></Slider>
+            <TextBlock Foreground="White" Grid.Column="1" Text="{Binding ExerciseTimeInterval, Mode=TwoWay}"></TextBlock>
+            
+        </Grid>
+        <Grid Grid.Row="2" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Slider Grid.Row="2"  Minimum="15" Maximum="45" TickPlacement="BottomRight" Width="300" x:Name="PoseS"
+                Value="{Binding PostureTimeInterval, Mode=TwoWay}"></Slider>
+            <TextBlock Foreground="White" Grid.Column="1" Text="{Binding PostureTimeInterval, Mode=TwoWay}"></TextBlock>    
+
+
+        </Grid>
+        
+       
+        
+        
     </Grid>
 </UserControl>

@@ -12,23 +12,30 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
 
         <Image Stretch="Fill" RenderOptions.BitmapScalingMode="Fant"
                    
                     Width="250"
                     Height="110"
-                    VerticalAlignment="Center"
+                    VerticalAlignment="Bottom"
                     HorizontalAlignment="Center">
             <Image.Source>
                 <BitmapImage UriSource="fixSit logo.png"/>
             </Image.Source>
         </Image>
-        <TextBlock Grid.Row="1" Foreground="Green" HorizontalAlignment="Center"
-                   VerticalAlignment="Center" FontSize="25" FontStyle="Italic" FontWeight="Bold">Fix your posture!<LineBreak/>We alert if your
-        posture is off<LineBreak/> and tell you how to FixSit!</TextBlock>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#4EA83E">Fix your posture!</TextBlock>
+
+        </Grid>
+        
 
 
 

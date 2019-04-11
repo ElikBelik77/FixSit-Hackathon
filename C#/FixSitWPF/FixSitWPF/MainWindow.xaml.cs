@@ -31,6 +31,7 @@ namespace FixSitWPF
         public MainWindow()
         {
             InitializeComponent();
+            FixSitWPF.Controller.Controller controller = new FixSitWPF.Controller.Controller();
             _NotifyIcon = new System.Windows.Forms.NotifyIcon();
             _NotifyIcon.Icon = System.Drawing.SystemIcons.Application;
             _NotifyIcon.Click += _NotifyIcon_Click;
@@ -54,7 +55,7 @@ namespace FixSitWPF
 
             SettingsButton.Click += (sender, e) =>
             {
-                SetContent(new SettingsContent());
+                SetContent(new SettingsContent(controller.SettingsModel));
             };
             
             QuitButton.Click += Quit_Click;
