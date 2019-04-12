@@ -179,6 +179,7 @@
     <Resource Include="Views\Resources\exercise8.gif" />
     <Resource Include="Views\Resources\exercise9.gif" />
     <Resource Include="Views\Resources\Asset 1.png" />
+    <Resource Include="fix-sit_icon.png" />
     <Content Include="Views\Resources\exercise1.gif" />
     <Resource Include="Views\Resources\exercise2.gif" />
     <Resource Include="Views\Resources\exercise3.gif" />
