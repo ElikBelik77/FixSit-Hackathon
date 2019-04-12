@@ -73,7 +73,7 @@ namespace FixSitWPF.Activities
 
                         string[] splitDirData = Environment.CurrentDirectory.Split(new[] { @"\" }, StringSplitOptions.None);
                         string pathToResources = String.Join("/", splitDirData.Take(splitDirData.Length - 2)) + "/Views/Resources/exercise";
-                        Console.WriteLine(pathToResources);
+                        
                         string Sgif1 = pathToResources + numbers[0].ToString() + ".gif";
                         string Sgif2 = pathToResources + numbers[1].ToString() + ".gif";
                         string Sgif3 = pathToResources + numbers[2].ToString() + ".gif";

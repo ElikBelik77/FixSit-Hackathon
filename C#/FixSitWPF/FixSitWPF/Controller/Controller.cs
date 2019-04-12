@@ -187,7 +187,7 @@ namespace FixSitWPF.Controller
                     Arguments = pythonModelPath,
                     CreateNoWindow = true
                 }
-            }
+            };
             _Process.Start();
         }
 
