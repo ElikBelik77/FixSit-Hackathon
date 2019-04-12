@@ -47,7 +47,7 @@ namespace FixSitWPF.Views.Contents
             set
             {
                 _Description = value;
-                DescriptionLabel.Content = DescriptionLabel;
+                DescriptionLabel.Content = value;
             }
         }
 

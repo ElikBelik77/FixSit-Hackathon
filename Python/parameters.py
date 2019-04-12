@@ -38,9 +38,9 @@ def ears_to_shoulders(earl, earr, shoull, shoulr):
     averageDist=(dl+dr)/2
     # Classifying
     print("avg dis", averageDist)
-    if 170 <= averageDist <= 225:
+    if 180 <= averageDist <= 225:
         return 0
-    elif averageDist < 170:
+    elif averageDist < 180:
         return -1
     else:
         return 1
