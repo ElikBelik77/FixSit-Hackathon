@@ -6,6 +6,34 @@
              xmlns:local="clr-namespace:FixSitWPF.Views.Contents"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <!-- This style is used for buttons, to remove the WPF default 'animated' mouse over effect -->
+            <Style x:Key="ButtonStyle" TargetType="Button">
+                <Setter Property="OverridesDefaultStyle" Value="True"/>
+                <Setter Property="Margin" Value="5"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Name="border" 
+                            BorderThickness="1"
+                            Padding="4,2" 
+                            BorderBrush="DarkGray" 
+                            CornerRadius="3" 
+                            Background="{TemplateBinding Background}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="border" Property="BorderBrush" Value="Black" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
     <Grid Background="Transparent">
         <Grid.RowDefinitions>
             <RowDefinition Height="6*"/>
@@ -29,6 +57,6 @@
         </Canvas>
 
         <Label x:Name="DescriptionLabel" Grid.ColumnSpan="3" Grid.Row="1" HorizontalAlignment="Center"></Label>
-        <Button x:Name="ShowMeButton" Grid.ColumnSpan="3" Grid.Row="2">Show me how</Button>
+        <Button x:Name="ShowMeButton" Style="{StaticResource ButtonStyle}" Grid.ColumnSpan="3" Grid.Row="2">Show me how</Button>
     </Grid>
 </UserControl>

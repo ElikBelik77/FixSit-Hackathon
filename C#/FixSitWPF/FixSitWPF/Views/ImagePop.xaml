@@ -7,6 +7,25 @@
         xmlns:Controls ="http://metro.mahapps.com/winfx/xaml/controls"
         mc:Ignorable="d"
         Title="ImagePop" Height="450" Width="800">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml"/>
+                <!-- Accent and AppTheme setting -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Green.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatButton.xaml" />
+
+
+
+            </ResourceDictionary.MergedDictionaries>
+            <!-- This style is used for buttons, to remove the WPF default 'animated' mouse over effect -->
+        </ResourceDictionary>
+    </Window.Resources>
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"></ColumnDefinition>
