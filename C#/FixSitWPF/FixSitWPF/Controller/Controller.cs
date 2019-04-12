@@ -115,7 +115,9 @@ namespace FixSitWPF.Controller
 
         private void _Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            _ActivityScheduler.Pause();
             _Process.Kill();
+            Environment.Exit(0);
         }
 
         private void _SettingsModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)

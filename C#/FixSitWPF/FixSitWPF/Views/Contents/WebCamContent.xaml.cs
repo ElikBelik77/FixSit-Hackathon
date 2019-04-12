@@ -69,35 +69,11 @@ namespace FixSitWPF.Views.Contents
         }
         #endregion
 
-        private ImageSource _PrevSource;
-        private bool _ViewingWebcam = true;
+
         private void ShowMeButton_Click(object sender, RoutedEventArgs e)
         {
-            if (_ViewingWebcam) {
-                Grid.SetColumnSpan(cv, 1);
-                Grid.SetColumn(cv, 1);
-                _ViewingWebcam = false;
-                ShowMeButton.Content = "Show webcam";
-                    string[] splitDirData = Environment.CurrentDirectory.Split(new[] { @"\" }, StringSplitOptions.None);
-                string pathToResources = String.Join("/", splitDirData.Take(splitDirData.Length - 2)) + "/Views/Resources/fixback.gif";
-                _PrevSource = ImageView.Source;
-                ImageView.Source = new BitmapImage(new Uri(pathToResources, UriKind.Absolute));
-                var image = new BitmapImage();
-                image.BeginInit();
-                image.UriSource = new Uri(pathToResources, UriKind.Absolute);
-                image.EndInit();
-                ImageBehavior.SetAnimatedSource(this.ImageView, image);
-            }
-            else
-            {
-                Grid.SetColumnSpan(cv, 3);
-                Grid.SetColumn(cv, 0);
-                _ViewingWebcam = true;
-                ShowMeButton.Content = "Show me how";
-                ImageSource temp = ImageView.Source;
-                ImageView.Source = _PrevSource;
-                _PrevSource = temp;
-            }
+            ImagePop pop = new ImagePop();
+            pop.Show();
         }
     }
 }

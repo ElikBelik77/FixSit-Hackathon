@@ -105,6 +105,9 @@
     <Compile Include="Views\Contents\WebCamContent.xaml.cs">
       <DependentUpon>WebCamContent.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ImagePop.xaml.cs">
+      <DependentUpon>ImagePop.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -140,6 +143,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Contents\WebCamContent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ImagePop.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
