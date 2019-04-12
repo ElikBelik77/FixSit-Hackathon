@@ -72,38 +72,34 @@ namespace FixSitWPF.Activities
             }
             else
             {
-                balloonTipText = "You are sitting good, well done !";
+                balloonTipText = "Your posure is perfecft!";
             }
 
-            if (response["answer"].ToString() == "bad")
+            System.Windows.Application.Current.Dispatcher.Invoke(() =>
             {
-                System.Windows.Application.Current.Dispatcher.Invoke(() =>
+                var notification = new System.Windows.Forms.NotifyIcon()
                 {
-                    var notification = new System.Windows.Forms.NotifyIcon()
-                    {
-                        Visible = true,
-                        Icon = System.Drawing.SystemIcons.Information,
+                    Visible = true,
+                    Icon = System.Drawing.SystemIcons.Information,
                         // BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info,
                         BalloonTipTitle = "FixSit",
-                        BalloonTipText = balloonTipText,
-                    };
-                    if (displayImage)
+                    BalloonTipText = balloonTipText,
+                };
+                if (displayImage)
+                {
+                    notification.BalloonTipClicked += (sender, e) =>
                     {
-                        notification.BalloonTipClicked += (sender, e) =>
-                        {    
-                           Image modelImage = LoadImage(response["image"].ToString());
-                           OnImageUpdate?.Invoke(modelImage, response["image"].ToString());
-                           //DO SOMETHING
+                        Image modelImage = LoadImage(response["image"].ToString());
+                        OnImageUpdate?.Invoke(modelImage, response["image"].ToString());
+                            //DO SOMETHING
                         };
-                    }
-                    notification.ShowBalloonTip(5000);
-                });
-               
-            }
+                }
+                notification.ShowBalloonTip(5000);
+            });
+
             OnFinish?.Invoke(this);
             //REMOVE THIS !
         }
-
 
         public void Stop()
         {

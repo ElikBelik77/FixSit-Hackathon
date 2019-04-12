@@ -24,7 +24,7 @@ namespace FixSitWPF.Views.Contents
         private string _Description;
         #endregion
 
-        #region         
+        #region Constructors        
         /// <summary>
         /// Initializes a new instance of the <see cref="WebCamContent"/> class.
         /// </summary>
@@ -47,7 +47,7 @@ namespace FixSitWPF.Views.Contents
             set
             {
                 _Description = value;
-
+                DescriptionLabel.Content = DescriptionLabel;
             }
         }
 
