@@ -18,7 +18,8 @@ namespace FixSitWPF.Models
         public event PropertyChangedEventHandler PropertyChanged;
         public SettingsModel()
         {
-
+            _PostureTimeInterval = 15;
+            _ExerciseTimeInterval = 30;
         }
         #endregion
 

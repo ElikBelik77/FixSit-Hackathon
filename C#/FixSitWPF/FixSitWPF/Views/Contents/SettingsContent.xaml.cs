@@ -25,6 +25,7 @@ namespace FixSitWPF.Views.Contents
     {
         public SettingsContent(FixSitWPF.Models.SettingsModel settings)
         {
+
             InitializeComponent();
             DataContext = settings;
         }

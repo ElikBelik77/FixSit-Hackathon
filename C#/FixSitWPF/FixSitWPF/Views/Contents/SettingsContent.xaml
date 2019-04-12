@@ -36,7 +36,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Slider Grid.Row="2"  Minimum="15" Maximum="45" TickPlacement="BottomRight" Width="300" x:Name="PoseS"
+            <Slider Grid.Row="2"  Minimum="15" Maximum="45" TickPlacement="BottomRight" x:Name="PoseS"
                 Value="{Binding PostureTimeInterval, Mode=TwoWay}"></Slider>
             <TextBlock Foreground="White" Grid.Column="1" Text="{Binding PostureTimeInterval, Mode=TwoWay}"></TextBlock>    
 
