@@ -77,12 +77,16 @@ def main_logic(image_path, model_path):
         if not states[i] == 0:
             if not states[i] == 2:
                 corrupt.append(correct_points[i])
+            else:
+                count = count + 1
         else:
             correct.append(correct_points[i])
     if not states[2] == 0:
         if not states[2] == 2:
             corrupt.append(correct_points[2][0])
             corrupt.append(correct_points[2][1])
+        else:
+            count = count + 1
     else:
         correct.append(correct_points[2][0])
         correct.append(correct_points[2][1])
@@ -96,10 +100,13 @@ def main_logic(image_path, model_path):
         with open(image_path + r"\frame.jpg", "rb") as image_file:
             return '{ "answer":"bad", "image":"' + base64.b64encode(image_file.read()).decode("utf-8") + '"}'
     else:
+        if count > 1:
+            return '{ "answer":"image_error" }'
         return '{ "answer":"good" }'
 
 
     # print(body_dict)
-# if __name__ == '__main__':
-#     utils.take_image(r"C:\Users\Naama\Desktop\fixSitting")
-#     main_logic(r"C:\Users\Naama\Desktop\fixSitting", r"C:\Users\Naama\Downloads\openpose-1.4.0-win64-cpu-binaries\openpose-1.4.0-win64-cpu-binaries")
+if __name__ == '__main__':
+
+    utils.take_image(r"C:\Users\Naama\Desktop\fixSitting")
+    main_logic(r"C:\Users\Naama\Desktop\fixSitting", r"C:\Users\Naama\Downloads\openpose-1.4.0-win64-cpu-binaries\openpose-1.4.0-win64-cpu-binaries")
