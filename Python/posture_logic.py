@@ -67,22 +67,35 @@ def main_logic(image_path, model_path):
     else:
         states.append(2)
         correct_points.append(0)
-
+    description = ""
     print(states)
     print(correct_points)
     count = 0
     corrupt = []
     correct = []
-    for i in range(len(states) - 1):
-        if not states[i] == 0:
-            if not states[i] == 2:
-                corrupt.append(correct_points[i])
+    if not states[0] == 0:
+        if not states[0] == 2:
+            corrupt.append(correct_points[0])
+            description = description + "Fix your distance from the screen.\n"
         else:
-            correct.append(correct_points[i])
+            count = count + 1
+    else:
+        correct.append(correct_points[0])
+    if not states[1] == 0:
+        if not states[1] == 2:
+            corrupt.append(correct_points[1])
+            description = description + "Tilt your head up.\n"
+        else:
+            count = count + 1
+    else:
+        correct.append(correct_points[1])
     if not states[2] == 0:
         if not states[2] == 2:
             corrupt.append(correct_points[2][0])
             corrupt.append(correct_points[2][1])
+            description = description + "Fix shoulders location.\n"
+        else:
+            count = count + 1
     else:
         correct.append(correct_points[2][0])
         correct.append(correct_points[2][1])
@@ -94,12 +107,15 @@ def main_logic(image_path, model_path):
 
     if len(corrupt) > 0:
         with open(image_path + r"\frame.jpg", "rb") as image_file:
-            return '{ "answer":"bad", "image":"' + base64.b64encode(image_file.read()).decode("utf-8") + '"}'
+            return '{ "answer":"bad", "description":"' + description + '" "image":"' + base64.b64encode(image_file.read()).decode("utf-8") + '"}'
     else:
+        if count > 1:
+            return '{ "answer":"image_error" }'
         return '{ "answer":"good" }'
 
 
     # print(body_dict)
-# if __name__ == '__main__':
-#     utils.take_image(r"C:\Users\Naama\Desktop\fixSitting")
-#     main_logic(r"C:\Users\Naama\Desktop\fixSitting", r"C:\Users\Naama\Downloads\openpose-1.4.0-win64-cpu-binaries\openpose-1.4.0-win64-cpu-binaries")
+if __name__ == '__main__':
+
+    utils.take_image(r"C:\Users\Naama\Desktop\fixSitting")
+    main_logic(r"C:\Users\Naama\Desktop\fixSitting", r"C:\Users\Naama\Downloads\openpose-1.4.0-win64-cpu-binaries\openpose-1.4.0-win64-cpu-binaries")

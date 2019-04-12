@@ -77,11 +77,21 @@ namespace FixSitWPF.Controller
             _ScheduleTimer.Start();
         }
 
+        public void UpdateTimeInterval(string identifier, int newTime)
+        {
+            IActivity activity = _Activities.Keys.Where(x => x.GetIdentifier() == identifier).ToList()[0];
+            int oldTime = _Activities[activity];
+            _Activities[activity] = newTime;
+
+            _RemainingActivities[activity] = newTime;
+
+
+        }
         
         private void _ScheduleTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
             _IdleTime += 1;
-            if(_RemainingActivities.First().Value == _IdleTime)
+            if(_RemainingActivities.First().Value <= _IdleTime)
             {
                 _RemainingActivities.First().Key.OnFinish += Activity_OnFinish;
                 _ScheduleTimer.Stop();

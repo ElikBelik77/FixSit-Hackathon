@@ -6,22 +6,24 @@
              xmlns:local="clr-namespace:FixSitWPF.Views.Contents"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="#2D2D2D">
+    <Grid Background="Transparent">
         <Grid.RowDefinitions>
             <RowDefinition Height="5*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Canvas Grid.Row="0" x:Name="cv">
             <Image x:Name="ImageView" Stretch="Fill" RenderOptions.BitmapScalingMode="Fant"
-                   
                     Width="{Binding ElementName=cv, Path=ActualWidth}"
                     Height="{Binding ElementName=cv, Path=ActualHeight}"
-                    VerticalAlignment="Top"
+                    VerticalAlignment="Stretch"
                     Margin="0,0,0,0"
-                    HorizontalAlignment="Center">
+                    HorizontalAlignment="Stretch">
                 
             </Image>
         </Canvas>
-        <Label Grid.Row="1"  HorizontalAlignment="Center">here we can write comments about the picture</Label>
+        <StackPanel Orientation="Vertical" Grid.Row="1">
+        <Label x:Name="DescriptionLabel" HorizontalAlignment="Center"></Label>
+        <Button x:Name="ShowMeButton">Show me how</Button>
+        </StackPanel>
     </Grid>
 </UserControl>
