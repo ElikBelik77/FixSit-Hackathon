@@ -110,6 +110,12 @@ namespace FixSitWPF.Controller
             _Window = win;
             _Window.OnMaximize += _Window_OnMaximize;
             _Window.OnMinimize += _Window_OnMinimize;
+            _Window.Closing += _Window_Closing;
+        }
+
+        private void _Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            _Process.Kill();
         }
 
         private void _SettingsModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -161,12 +167,10 @@ namespace FixSitWPF.Controller
             System.Windows.Media.ImageSource WpfBitmap = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(hBitmap, IntPtr.Zero, Int32Rect.Empty, System.Windows.Media.Imaging.BitmapSizeOptions.FromEmptyOptions());
 
             img.Source = WpfBitmap;
-            img.Width = 500;
-            img.Height = 600;
             img.Stretch = System.Windows.Media.Stretch.Fill;
             return img;
         }
-
+        private Process _Process;
         /// <summary>
         /// Creates the python model.
         /// </summary>
@@ -175,7 +179,16 @@ namespace FixSitWPF.Controller
             string[] splitDirData = Environment.CurrentDirectory.Split(new[] { @"\" }, StringSplitOptions.None);
             string pythonModelPath = String.Join("/",splitDirData.Take(splitDirData.Length-5))+ @"/Python/main.py";
 
-            Process.Start(@"C:\Users\Naama\AppData\Local\Programs\Python\Python36-32\python.exe",pythonModelPath);
+            _Process = new Process()
+            {
+                StartInfo = new ProcessStartInfo()
+                {
+                    FileName = @"C:\Users\Naama\AppData\Local\Programs\Python\Python36-32\python.exe",
+                    Arguments = pythonModelPath,
+                    CreateNoWindow = true
+                }
+            }
+            _Process.Start();
         }
 
 
