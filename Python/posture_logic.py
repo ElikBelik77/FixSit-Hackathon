@@ -104,13 +104,13 @@ def main_logic(image_path, model_path):
     print(corrupt)
     print(correct)
 
-    utils.draw_circles(image_path + r"\frame.jpg", corrupt, 20, 0.4, 'r')
-    utils.draw_circles(image_path + r"\frame.jpg", correct, 20, 0.4, 'g')
+    utils.draw_circles(image_path + r"\frame.jpg", corrupt, 20, 0.3, (250, 0, 0, 77))
+    utils.draw_circles(image_path + r"\frame.jpg", correct, 20, 0.3, (0, 250, 0, 77))
 
     if len(corrupt) > 0:
-        img = Image.open(image_path + r"\frame.jpg")
-        img.resize((400, 400), PIL.Image.ANTIALIAS)
-        img.save(image_path + r"\frame.jpg")
+        # img = Image.open(image_path + r"\frame.jpg")
+        # # img.resize((400, 400), PIL.Image.ANTIALIAS)
+        # img.save(image_path + r"\frame.jpg")
         with open(image_path + r"\frame.jpg", "rb") as image_file:
             return '{ "answer":"bad", "description":"' + description + '" , "image":"' + base64.b64encode(image_file.read()).decode("utf-8") + '"}'
     else:

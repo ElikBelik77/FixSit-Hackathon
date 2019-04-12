@@ -1,8 +1,10 @@
 import cv2
 import socket
 import sys
-from matplotlib.patches import Circle
-import matplotlib.pyplot as plt
+import PIL
+from PIL import Image
+from PIL import ImageDraw
+
 
 
 def take_image(output_path):
@@ -31,13 +33,18 @@ def initialize_socket():
 
 
 def draw_circles(image_path, points, circle_size, alpha, tag):
-    fig, ax = plt.subplots(1)
-    img = plt.imread(image_path)
-    ax.set_aspect('equal')
-    ax.imshow(img)
-    plt.axis('off')
+    # fig, ax = plt.subplots(1)
+    # img = plt.imread(image_path)
+    # plt.axis('off')
+    # ax.set_aspect('equal')
+    # ax.imshow(img)
+    image = PIL.Image.open(image_path)
+    draw = ImageDraw.Draw(image)
+    # size = img.size()
     for x, y in points:
-        circ = Circle((x, y),  circle_size, alpha=alpha, color=tag)
-        ax.add_patch(circ)
-    plt.savefig(image_path)
+        draw.ellipse((x-circle_size, y-circle_size, x+circle_size, y+circle_size), fill=tag)
+        # circ = Circle((x, y),  circle_size, alpha=alpha, color=tag)
+        # ax.add_patch(circ)
+    # plt.savefig(image_path)
+    image.save(image_path)
     # plt.show()

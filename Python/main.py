@@ -42,6 +42,7 @@ if __name__ == '__main__':
                         connection.send(f'{len(CAMERA_ERROR_ANSWER):0{MSG_LEN}d}{CAMERA_ERROR_ANSWER}'.encode('utf-8'))
                         break
                     result = posture_logic.main_logic(IMAGE_PATH, MODEL_PATH)
+                    print(result)
                     connection.send(f"{len(result):0{MSG_LEN}d}{result}".encode('utf-8'))
                 else:
                     connection.send(f'{len(ERROR_ANSWER):0{MSG_LEN}d}{ERROR_ANSWER}'.encode('utf-8'))
