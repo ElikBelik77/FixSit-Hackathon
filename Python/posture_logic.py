@@ -78,7 +78,7 @@ def main_logic(image_path, model_path):
     if not states[0] == 0:
         if not states[0] == 2:
             corrupt.append(correct_points[0])
-            description = description + "Fix your distance from the screen.\n"
+            description = description + "Fix your distance from the screen. "
         else:
             count = count + 1
     else:
@@ -86,7 +86,7 @@ def main_logic(image_path, model_path):
     if not states[1] == 0:
         if not states[1] == 2:
             corrupt.append(correct_points[1])
-            description = description + "Tilt your head up.\n"
+            description = description + "Tilt your head up. "
         else:
             count = count + 1
     else:
@@ -95,7 +95,7 @@ def main_logic(image_path, model_path):
         if not states[2] == 2:
             corrupt.append(correct_points[2][0])
             corrupt.append(correct_points[2][1])
-            description = description + "Fix shoulders location.\n"
+            description = description + "Fix shoulders location. "
         else:
             count = count + 1
     else:
@@ -109,7 +109,7 @@ def main_logic(image_path, model_path):
 
     if len(corrupt) > 0:
         img = Image.open(image_path + r"\frame.jpg")
-        img.resize((800, 600), PIL.Image.ANTIALIAS)
+        img.resize((400, 400), PIL.Image.ANTIALIAS)
         img.save(image_path + r"\frame.jpg")
         with open(image_path + r"\frame.jpg", "rb") as image_file:
             return '{ "answer":"bad", "description":"' + description + '" , "image":"' + base64.b64encode(image_file.read()).decode("utf-8") + '"}'
