@@ -93,20 +93,20 @@ namespace FixSitWPF.Controller
             ExerciseActivity execActivity = new ExerciseActivity(this);
             execActivity.OnExerciseStart += (paths) =>
             {
-                
+
                 win.Show();
                 win.SetContent(win._ExerciseContent);
                 win._ExerciseContent.ShowGifs(paths);
                 _ActivityScheduler.Pause();
             };
-            
+
             poseActivity.OnImageUpdate += PoseActivity_OnImageUpdate;
             _ActivityScheduler = new ActivityScheduler(new Dictionary<IActivity, int>()
             {
                 { poseActivity, 15},
                 {execActivity,30}
             });
-            
+
             _Window = win;
             _Window.OnMaximize += _Window_OnMaximize;
             _Window.OnMinimize += _Window_OnMinimize;
@@ -177,7 +177,7 @@ namespace FixSitWPF.Controller
         public void CreatePythonModel()
         {
             string[] splitDirData = Environment.CurrentDirectory.Split(new[] { @"\" }, StringSplitOptions.None);
-            string pythonModelPath = String.Join("/",splitDirData.Take(splitDirData.Length-5))+ @"/Python/main.py";
+            string pythonModelPath = String.Join("/", splitDirData.Take(splitDirData.Length - 5)) + @"/Python/main.py";
 
             _Process = new Process()
             {
@@ -185,7 +185,9 @@ namespace FixSitWPF.Controller
                 {
                     FileName = @"C:\Users\Naama\AppData\Local\Programs\Python\Python36-32\python.exe",
                     Arguments = pythonModelPath,
-                    CreateNoWindow = true
+                    CreateNoWindow = true,
+                    RedirectStandardOutput = true,
+                    UseShellExecute = false,
                 }
             };
             _Process.Start();

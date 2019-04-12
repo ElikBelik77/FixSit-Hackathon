@@ -72,6 +72,8 @@ namespace FixSitWPF.Views.Contents
         private ImageSource _PrevSource;
         private void ShowMeButton_Click(object sender, RoutedEventArgs e)
         {
+            Grid.SetColumnSpan(cv, 1);
+            Grid.SetColumn(cv , 1);
             string[] splitDirData = Environment.CurrentDirectory.Split(new[] { @"\" }, StringSplitOptions.None);
             string pathToResources = String.Join("/", splitDirData.Take(splitDirData.Length - 2)) + "/Views/Resources/fixback.gif";
             ImageView.Source = new BitmapImage(new Uri(pathToResources, UriKind.Absolute));
