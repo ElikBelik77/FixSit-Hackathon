@@ -55,12 +55,12 @@ namespace FixSitWPF.Activities
 
 
                         Random rnd = new Random();
-                        int itemsNeeded = 3;
+                        int itemsNeeded = 4;
                         List<string> gifs = new List<string>(itemsNeeded);
                         List<int> numbers = new List<int>(itemsNeeded);
                         List<int> availableNumbers = new List<int>();
                         int n;
-                        for (int i = 0; i < 5; i++)
+                        for (int i = 0; i < 9; i++)
                         {
                             availableNumbers.Add(i + 1);
                         }
@@ -77,9 +77,11 @@ namespace FixSitWPF.Activities
                         string Sgif1 = pathToResources + numbers[0].ToString() + ".gif";
                         string Sgif2 = pathToResources + numbers[1].ToString() + ".gif";
                         string Sgif3 = pathToResources + numbers[2].ToString() + ".gif";
+                        string Sgif4 = pathToResources + numbers[3].ToString() + ".gif";
                         gifs.Add(Sgif1);
                         gifs.Add(Sgif2);
                         gifs.Add(Sgif3);
+                        gifs.Add(Sgif4);
                         OnExerciseStart?.Invoke(gifs);
                         //DO SOMETHING
                     };
