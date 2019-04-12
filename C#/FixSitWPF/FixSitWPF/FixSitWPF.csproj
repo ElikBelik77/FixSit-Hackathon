@@ -39,6 +39,9 @@
   <PropertyGroup>
     <StartupObject />
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>fix-sit_icon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Cauldron.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Cauldron.Core.2.0.0\lib\net45\Cauldron.Core.dll</HintPath>
@@ -188,6 +191,7 @@
     <Resource Include="Views\Resources\exercise9.gif" />
     <Resource Include="Views\Resources\Asset 1.png" />
     <Resource Include="fix-sit_icon.png" />
+    <Resource Include="fix-sit_icon.ico" />
     <Content Include="Views\Resources\exercise1.gif" />
     <Resource Include="Views\Resources\exercise2.gif" />
     <Resource Include="Views\Resources\exercise3.gif" />

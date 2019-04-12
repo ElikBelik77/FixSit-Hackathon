@@ -2,6 +2,8 @@ import parameters
 import posture_model
 import utils
 import base64
+import PIL
+from PIL import Image
 
 
 def check_for_function(general_dict, func_dict):
@@ -106,6 +108,9 @@ def main_logic(image_path, model_path):
     utils.draw_circles(image_path + r"\frame.jpg", correct, 20, 0.4, 'g')
 
     if len(corrupt) > 0:
+        img = Image.open(image_path + r"\frame.jpg")
+        img.resize((800, 600), PIL.Image.ANTIALIAS)
+        img.save(image_path + r"\frame.jpg")
         with open(image_path + r"\frame.jpg", "rb") as image_file:
             return '{ "answer":"bad", "description":"' + description + '" , "image":"' + base64.b64encode(image_file.read()).decode("utf-8") + '"}'
     else:
@@ -116,6 +121,5 @@ def main_logic(image_path, model_path):
 
     # print(body_dict)
 if __name__ == '__main__':
-
     utils.take_image(r"C:\Users\Naama\Desktop\fixSitting")
     main_logic(r"C:\Users\Naama\Desktop\fixSitting", r"C:\Users\Naama\Downloads\openpose-1.4.0-win64-cpu-binaries\openpose-1.4.0-win64-cpu-binaries")
