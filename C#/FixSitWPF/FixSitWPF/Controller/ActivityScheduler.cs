@@ -67,6 +67,7 @@ namespace FixSitWPF.Controller
             }
         }
         #endregion
+
         #region Scheduling Functions        
         /// <summary>
         /// Starts this instance.
@@ -89,6 +90,16 @@ namespace FixSitWPF.Controller
             }
         }
         
+        public void Resume()
+        {
+            _ScheduleTimer.Start();
+        }
+
+        public void Pause()
+        {
+            _ScheduleTimer.Stop();
+        }
+
 
         private void Activity_OnFinish(IActivity sender)
         {

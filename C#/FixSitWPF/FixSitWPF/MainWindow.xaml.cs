@@ -47,7 +47,6 @@ namespace FixSitWPF
         }
         #endregion
 
-
         #region Constructors        
         /// <summary>
         /// Initializes a new instance of the <see cref="MainWindow"/> class.
@@ -73,12 +72,39 @@ namespace FixSitWPF
                 SetContent(_WebcamContent);
             };
 
-            StatisticsButton.Click += (sender, e) => {
-                SetContent(new StatsContent());
-            };
+            
 
             ExerciseButton.Click += (sender, e) =>
             {
+                Random rnd = new Random();
+                int itemsNeeded = 4;
+                List<string> gifs = new List<string>(itemsNeeded);
+                List<int> numbers = new List<int>(itemsNeeded);
+                List<int> availableNumbers = new List<int>();
+                int n;
+                for (int i = 0; i < 9; i++)
+                {
+                    availableNumbers.Add(i + 1);
+                }
+                for (int i = 0; i < itemsNeeded; i++)
+                {
+                    int index = rnd.Next(0, availableNumbers.Count);
+                    numbers.Add(availableNumbers[index]);
+                    availableNumbers.Remove(numbers[i]);
+                }
+
+                string[] splitDirData = Environment.CurrentDirectory.Split(new[] { @"\" }, StringSplitOptions.None);
+                string pathToResources = String.Join("/", splitDirData.Take(splitDirData.Length - 2)) + "/Views/Resources/exercise";
+                Console.WriteLine(pathToResources);
+                string Sgif1 = pathToResources + numbers[0].ToString() + ".gif";
+                string Sgif2 = pathToResources + numbers[1].ToString() + ".gif";
+                string Sgif3 = pathToResources + numbers[2].ToString() + ".gif";
+                string Sgif4 = pathToResources + numbers[3].ToString() + ".gif";
+                gifs.Add(Sgif1);
+                gifs.Add(Sgif2);
+                gifs.Add(Sgif3);
+                gifs.Add(Sgif4);
+                _ExerciseContent.ShowGifs(gifs);
                 SetContent(_ExerciseContent);
             };
 
@@ -94,6 +120,9 @@ namespace FixSitWPF
         }
         #endregion
 
+        public delegate void FocusEvent();
+        public event FocusEvent OnMinimize;
+        public event FocusEvent OnMaximize;
 
         /// <summary>
         /// Sets the content of the main part of the main window.
@@ -118,11 +147,13 @@ namespace FixSitWPF
             if (WindowState == WindowState.Minimized)
             {
                 _NotifyIcon.Visible = false;
+                OnMaximize?.Invoke();
             }
 
             else if (WindowState.Normal == this.WindowState)
             {
                 _NotifyIcon.Visible = true;
+                OnMinimize?.Invoke();
                 this.Hide();
             }
         }

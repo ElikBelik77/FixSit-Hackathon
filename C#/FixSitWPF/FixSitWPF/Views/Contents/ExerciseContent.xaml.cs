@@ -29,7 +29,7 @@ namespace FixSitWPF.Views.Contents
         {
             InitializeComponent();
             _CurrentGif = 0;
-            Random rnd = new Random();
+            /*Random rnd = new Random();
             int itemsNeeded = 3;
             List<string> gifs = new List<string>(itemsNeeded);
             List<int> numbers = new List<int>(itemsNeeded);
@@ -55,7 +55,8 @@ namespace FixSitWPF.Views.Contents
             gifs.Add(Sgif1);
             gifs.Add(Sgif2);
             gifs.Add(Sgif3);
-            _Paths = gifs;
+            _Paths = gifs;*/
+            
         }
 
         
