@@ -56,13 +56,14 @@ namespace FixSitWPF.Networking
             _Socket.Receive(messageLengthBuffer);
             int messageLength = int.Parse(Encoding.UTF8.GetString(messageLengthBuffer));
 
-            System.Threading.Thread.Sleep(1000);
             int count = messageLength / 5000;
             byte[] messageBuffer;
             while (count > 0)
             {
                 messageBuffer = new byte[5000];
                 _Socket.Receive(messageBuffer);
+                System.Threading.Thread.Sleep(500);
+
                 message += Encoding.UTF8.GetString(messageBuffer);
                 count--;
             }
