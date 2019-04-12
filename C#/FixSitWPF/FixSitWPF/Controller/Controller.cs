@@ -103,7 +103,7 @@ namespace FixSitWPF.Controller
             poseActivity.OnImageUpdate += PoseActivity_OnImageUpdate;
             _ActivityScheduler = new ActivityScheduler(new Dictionary<IActivity, int>()
             {
-                //{ poseActivity, 15 }
+                { poseActivity, 15},
                 {execActivity,30}
             });
             
