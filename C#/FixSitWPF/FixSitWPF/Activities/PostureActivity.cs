@@ -90,7 +90,7 @@ namespace FixSitWPF.Activities
                     notification.BalloonTipClicked += (sender, e) =>
                     {
                         Image modelImage = LoadImage(response["image"].ToString());
-                        OnImageUpdate?.Invoke(modelImage, response["image"].ToString());
+                        OnImageUpdate?.Invoke(modelImage, response["description"].ToString());
                             //DO SOMETHING
                         };
                 }
