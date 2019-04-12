@@ -87,26 +87,42 @@ namespace FixSitWPF.Controller
         public Controller(MainWindow win)
         {
             _SettingsModel = new SettingsModel();
+            _SettingsModel.PropertyChanged += _SettingsModel_PropertyChanged;
             _Client = new DataClient("127.0.0.1", 10000);
             PostureActivity poseActivity = new PostureActivity(_Client);
             ExerciseActivity execActivity = new ExerciseActivity(this);
             execActivity.OnExerciseStart += (paths) =>
             {
+                
                 win.Show();
                 win.SetContent(win._ExerciseContent);
                 win._ExerciseContent.ShowGifs(paths);
+                _ActivityScheduler.Pause();
             };
             
             poseActivity.OnImageUpdate += PoseActivity_OnImageUpdate;
             _ActivityScheduler = new ActivityScheduler(new Dictionary<IActivity, int>()
             {
-                //{ poseActivity, 1 }
-                {execActivity,5}
+                //{ poseActivity, 15 }
+                {execActivity,30}
             });
             
             _Window = win;
             _Window.OnMaximize += _Window_OnMaximize;
             _Window.OnMinimize += _Window_OnMinimize;
+        }
+
+        private void _SettingsModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "PostureTimeInterval")
+            {
+                _ActivityScheduler.UpdateTimeInterval("posture", (sender as SettingsModel).PostureTimeInterval);
+
+            }
+            else if (e.PropertyName == "ExerciseTimeInterval")
+            {
+                _ActivityScheduler.UpdateTimeInterval("exercise", (sender as SettingsModel).ExerciseTimeInterval);
+            }
         }
 
         private void _Window_OnMinimize()
@@ -128,6 +144,7 @@ namespace FixSitWPF.Controller
 
         private void PoseActivity_OnImageUpdate(Image image, string description)
         {
+            ActivityScheduler.Pause();
             this._Window.WebcamContent.Image = ConvertDrawingImageToWPFImage(image);
             this._Window.WebcamContent.Description = description;
             this._Window.SetContent(this._Window.WebcamContent);
