@@ -107,7 +107,7 @@ def main_logic(image_path, model_path):
 
     if len(corrupt) > 0:
         with open(image_path + r"\frame.jpg", "rb") as image_file:
-            return '{ "answer":"bad", "description":"' + description + '" "image":"' + base64.b64encode(image_file.read()).decode("utf-8") + '"}'
+            return '{ "answer":"bad", "description":"' + description + '" , "image":"' + base64.b64encode(image_file.read()).decode("utf-8") + '"}'
     else:
         if count > 1:
             return '{ "answer":"image_error" }'
