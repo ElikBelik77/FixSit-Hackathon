@@ -8,35 +8,66 @@ using System.Windows;
 
 namespace FixSitWPF.Activities
 {
+    /// <summary>
+    /// Activity that instructs the user to do some exercises.
+    /// </summary>
+    /// <seealso cref="FixSitWPF.Controller.IActivity" />
     public class ExerciseActivity : IActivity
     {
-
+        
         public delegate void ExerciseEventArgs(List<string> paths);
         public event ExerciseEventArgs OnExerciseStart;
         public event ActivityEventArgs OnFinish;
+        #region Member Variables
         private Controller.Controller _Controller;
+        #endregion
 
+        #region Properties        
+        /// <summary>
+        /// Gets or sets the controller.
+        /// </summary>
+        /// <value>
+        /// The controller.
+        /// </value>
         public Controller.Controller Controller
         {
             get { return _Controller; }
             set { _Controller = value; }
         }
-
+        #endregion
+        #region Constructors        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ExerciseActivity"/> class.
+        /// </summary>
+        /// <param name="c">The controller.</param>
         public ExerciseActivity(Controller.Controller c)
         {
             _Controller = c;
         }
+        #endregion
 
+        #region IActivity Functions        
+        /// <summary>
+        /// Gets the priority of the
+        /// </summary>
+        /// <returns></returns>
         public string GetIdentifier()
         {
             return "exercise";
         }
 
+        /// <summary>
+        /// Gets the priority of the activity.
+        /// </summary>
+        /// <returns></returns>
         public int GetPriority()
         {
             return 0;
         }
 
+        /// <summary>
+        /// Starts the activity.
+        /// </summary>
         public void Start()
         {
             Application.Current.Dispatcher.Invoke(() =>
@@ -89,9 +120,13 @@ namespace FixSitWPF.Activities
             OnFinish.Invoke(this);
         }
 
+        /// <summary>
+        /// Stops the activity.
+        /// </summary>
         public void Stop()
         {
 
         }
+        #endregion
     }
 }

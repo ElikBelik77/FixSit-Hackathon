@@ -21,6 +21,9 @@ namespace FixSitWPF.Views
     /// </summary>
     public partial class ImagePop : MetroWindow
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ImagePop"/> class.
+        /// </summary>
         public ImagePop()
         {
             InitializeComponent();
