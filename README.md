@@ -1,8 +1,11 @@
 # FixSit
-Fix your posture !
+Fix your posture while working on the computer!
 
-Yonatan Lifshitz
-Naama Berman
-Eliran Ziv
-Jonathan Diamant
+
+Written by : 
+
+Yonatan Lifshitz </br>
+Naama Berman </br>
+Eliran Ziv </br>
+Jonathan Diamant </br>
 Hadar Kaner
