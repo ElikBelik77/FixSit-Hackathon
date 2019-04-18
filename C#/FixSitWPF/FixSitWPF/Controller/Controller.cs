@@ -70,8 +70,8 @@ namespace FixSitWPF.Controller
             {
 
                 win.Show();
-                win.SetContent(win._ExerciseContent);
-                win._ExerciseContent.ShowGifs(paths);
+                win.SetContent(win.ExerciseContent);
+                win.ExerciseContent.ShowGifs(paths);
                 ActivityScheduler.Pause();
             };
 
