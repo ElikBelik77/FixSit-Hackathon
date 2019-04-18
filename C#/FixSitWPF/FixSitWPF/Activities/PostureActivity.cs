@@ -1,17 +1,12 @@
 ﻿using FixSitWPF.Controller;
 using FixSitWPF.Networking;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FixSitWPF.Extensions;
-using System.Windows.Forms;
-using System.Windows.Shell;
-using System.Windows.Threading;
 using System.Drawing;
 using System.IO;
+using FixSitWPF.Properties;
+using Newtonsoft.Json.Linq;
 
 namespace FixSitWPF.Activities
 {
@@ -19,23 +14,25 @@ namespace FixSitWPF.Activities
     {
         public delegate void WebcamImageEventArgs(Image image, string description);
         public event WebcamImageEventArgs OnImageUpdate;
+
         #region Member Variables
-        private DataClient _Client;
+
         #endregion
 
         #region Constructors
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="client"></param>
         public PostureActivity(DataClient client)
         {
-            _Client = client;
+            Client = client;
         }
         #endregion
 
         #region Properties
-        public DataClient Client
-        {
-            get { return _Client; }
-            set { _Client = value; }
-        }
+        public DataClient Client { get; set; }
+
         #endregion
 
 
@@ -58,7 +55,7 @@ namespace FixSitWPF.Activities
             {
                 {"request","posture_status" }
             };
-            JToken response = _Client.GetResponse(request.ToJson());
+            JToken response = Client.GetResponse(request.ToJson());
             string balloonTipText = "";
             if (response["answer"].ToString() == "bad")
             {
@@ -72,7 +69,7 @@ namespace FixSitWPF.Activities
             }
             else
             {
-                balloonTipText = "Your posure is perfecft!";
+                balloonTipText = "Your posture is perfect!";
             }
 
             System.Windows.Application.Current.Dispatcher.Invoke(() =>
@@ -80,9 +77,9 @@ namespace FixSitWPF.Activities
                 var notification = new System.Windows.Forms.NotifyIcon()
                 {
                     Visible = true,
-                    Icon = System.Drawing.SystemIcons.Information,
+                    Icon = SystemIcons.Information,
                         // BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info,
-                        BalloonTipTitle = "FixSit",
+                        BalloonTipTitle = Resources.ApplicationName,
                     BalloonTipText = balloonTipText,
                 };
                 if (displayImage)
@@ -106,7 +103,7 @@ namespace FixSitWPF.Activities
             
         }
 
-        private Image LoadImage(string base64)
+        private static Image LoadImage(string base64)
         {
             //data:image/gif;base64,
             //this image is a single pixel (black)

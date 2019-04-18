@@ -6,12 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using WpfAnimatedGif;
 
 namespace FixSitWPF.Controller
 {
@@ -21,11 +16,6 @@ namespace FixSitWPF.Controller
     public class Controller
     {
         #region Member Variables
-        private SettingsModel _SettingsModel;
-        private ActivityScheduler _ActivityScheduler;
-        private DataClient _Client;
-        private MainWindow _Window;
-
 
         #endregion
 
@@ -36,11 +26,7 @@ namespace FixSitWPF.Controller
         /// <value>
         /// The window.
         /// </value>
-        public MainWindow Window
-        {
-            get { return _Window; }
-            set { _Window = value; }
-        }
+        public MainWindow Window { get; set; }
 
         /// <summary>
         /// Gets or sets the client.
@@ -48,11 +34,7 @@ namespace FixSitWPF.Controller
         /// <value>
         /// The client.
         /// </value>
-        public DataClient Client
-        {
-            get { return _Client; }
-            set { _Client = value; }
-        }
+        public DataClient Client { get; set; }
 
         /// <summary>
         /// Gets or sets the activity scheduler.
@@ -60,11 +42,7 @@ namespace FixSitWPF.Controller
         /// <value>
         /// The activity scheduler.
         /// </value>
-        public ActivityScheduler ActivityScheduler
-        {
-            get { return _ActivityScheduler; }
-            set { _ActivityScheduler = value; }
-        }
+        public ActivityScheduler ActivityScheduler { get; set; }
 
         /// <summary>
         /// Gets or sets the settings model.
@@ -72,11 +50,8 @@ namespace FixSitWPF.Controller
         /// <value>
         /// The settings model.
         /// </value>
-        public SettingsModel SettingsModel
-        {
-            get { return _SettingsModel; }
-            set { _SettingsModel = value; }
-        }
+        public SettingsModel SettingsModel { get; set; }
+
         #endregion
 
         #region Constructors        
@@ -86,10 +61,10 @@ namespace FixSitWPF.Controller
         /// <param name="win">The main window controlled by this instance</param>
         public Controller(MainWindow win)
         {
-            _SettingsModel = new SettingsModel();
-            _SettingsModel.PropertyChanged += _SettingsModel_PropertyChanged;
-            _Client = new DataClient("127.0.0.1", 10000);
-            PostureActivity poseActivity = new PostureActivity(_Client);
+            SettingsModel = new SettingsModel();
+            SettingsModel.PropertyChanged += _SettingsModel_PropertyChanged;
+            Client = new DataClient("127.0.0.1", 10000);
+            PostureActivity poseActivity = new PostureActivity(Client);
             ExerciseActivity execActivity = new ExerciseActivity(this);
             execActivity.OnExerciseStart += (paths) =>
             {
@@ -97,82 +72,75 @@ namespace FixSitWPF.Controller
                 win.Show();
                 win.SetContent(win._ExerciseContent);
                 win._ExerciseContent.ShowGifs(paths);
-                _ActivityScheduler.Pause();
+                ActivityScheduler.Pause();
             };
 
             poseActivity.OnImageUpdate += PoseActivity_OnImageUpdate;
-            _ActivityScheduler = new ActivityScheduler(new Dictionary<IActivity, int>()
+            ActivityScheduler = new ActivityScheduler(new Dictionary<IActivity, int>()
             {
                 { poseActivity, 15},
                 {execActivity,30}
             });
+            ActivityScheduler.Start();
 
-            _Window = win;
-            _Window.OnMaximize += _Window_OnMaximize;
-            _Window.OnMinimize += _Window_OnMinimize;
-            _Window.Closing += _Window_Closing;
+            Window = win;
+            Window.OnMaximize += Window_OnMaximize;
+            Window.OnMinimize += Window_OnMinimize;
+            Window.Closing += _Window_Closing;
         }
 
         private void _Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             try
             {
-                _ActivityScheduler.Pause();
+                ActivityScheduler.Pause();
                 _Process.Kill();
                 Environment.Exit(0);
             }
-            catch { }
+            catch
+            {
+                // ignored
+            }
         }
 
         private void _SettingsModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == "PostureTimeInterval")
+            switch (e.PropertyName)
             {
-                _ActivityScheduler.UpdateTimeInterval("posture", (sender as SettingsModel).PostureTimeInterval);
-
+                case "PostureTimeInterval":
+                    ActivityScheduler.UpdateTimeInterval("posture", ((SettingsModel) sender).PostureTimeInterval);
+                    break;
+                case "ExerciseTimeInterval":
+                    ActivityScheduler.UpdateTimeInterval("exercise", ((SettingsModel) sender).ExerciseTimeInterval);
+                    break;
             }
-            else if (e.PropertyName == "ExerciseTimeInterval")
-            {
-                _ActivityScheduler.UpdateTimeInterval("exercise", (sender as SettingsModel).ExerciseTimeInterval);
-            }
         }
 
-        private void _Window_OnMinimize()
-        {
-            _ActivityScheduler.Resume();
-        }
+        private void Window_OnMinimize() => ActivityScheduler.Resume();
 
-        private void _Window_OnMaximize()
-        {
-            _ActivityScheduler.Pause();
-        }
-
-
-
-
-
+        private void Window_OnMaximize() => ActivityScheduler.Pause();
 
         #endregion
 
         private void PoseActivity_OnImageUpdate(Image image, string description)
         {
             ActivityScheduler.Pause();
-            this._Window.WebcamContent.Image = ConvertDrawingImageToWPFImage(image);
-            this._Window.WebcamContent.Description = description;
-            this._Window.SetContent(this._Window.WebcamContent);
-            this._Window.Show();
+            Window.WebcamContent.Image = ConvertDrawingImageToWpfImage(image);
+            Window.WebcamContent.Description = description;
+            Window.SetContent(Window.WebcamContent);
+            Window.Show();
         }
 
-        private System.Windows.Controls.Image ConvertDrawingImageToWPFImage(System.Drawing.Image gdiImg)
+        private static System.Windows.Controls.Image ConvertDrawingImageToWpfImage(Image gdiImg)
         {
             System.Windows.Controls.Image img = new System.Windows.Controls.Image();
 
             //convert System.Drawing.Image to WPF image
-            System.Drawing.Bitmap bmp = new System.Drawing.Bitmap(gdiImg);
+            Bitmap bmp = new Bitmap(gdiImg);
             IntPtr hBitmap = bmp.GetHbitmap();
-            System.Windows.Media.ImageSource WpfBitmap = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(hBitmap, IntPtr.Zero, Int32Rect.Empty, System.Windows.Media.Imaging.BitmapSizeOptions.FromEmptyOptions());
+            System.Windows.Media.ImageSource wpfBitmap = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(hBitmap, IntPtr.Zero, Int32Rect.Empty, System.Windows.Media.Imaging.BitmapSizeOptions.FromEmptyOptions());
 
-            img.Source = WpfBitmap;
+            img.Source = wpfBitmap;
             img.Stretch = System.Windows.Media.Stretch.Fill;
             return img;
         }
@@ -183,13 +151,13 @@ namespace FixSitWPF.Controller
         public void CreatePythonModel()
         {
             string[] splitDirData = Environment.CurrentDirectory.Split(new[] { @"\" }, StringSplitOptions.None);
-            string pythonModelPath = String.Join("/", splitDirData.Take(splitDirData.Length - 5)) + @"/Python/main.py";
+            string pythonModelPath = string.Join("/", splitDirData.Take(splitDirData.Length - 5)) + @"/Python/main.py";
 
             _Process = new Process()
             {
                 StartInfo = new ProcessStartInfo()
                 {
-                    FileName = @"C:\Users\Naama\AppData\Local\Programs\Python\Python36-32\python.exe",
+                    FileName = "python.exe",
                     Arguments = pythonModelPath,
                     CreateNoWindow = true,
                     RedirectStandardOutput = true,

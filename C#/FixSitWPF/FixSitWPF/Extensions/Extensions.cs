@@ -1,17 +1,12 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FixSitWPF.Extensions
 {
     /// <summary>
-    /// Extenstions for bultins classes.
+    /// Extensions for built ins classes.
     /// </summary>
-    public static class Extenstions
+    public static class Extensions
     {
         /// <summary>
         /// Converts a dictionary to json string.
@@ -20,9 +15,8 @@ namespace FixSitWPF.Extensions
         /// <returns>json string representing the dictionary</returns>
         public static string ToJson(this Dictionary<string, string> dict)
         {
-            var entries = dict.Select(d =>
+            IEnumerable<string> entries = dict.Select(d =>
                 string.Format('"'+ "{0}"+'"'+":" + '"'+ "{1}" +'"', d.Key, d.Value));
-            Console.WriteLine("{" + string.Join(",", entries) + "}");
             return "{" + string.Join(",", entries) + "}";
         }
     }

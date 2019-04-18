@@ -2,24 +2,26 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+using System.Windows.Forms;
+using FixSitWPF.Properties;
+using Application = System.Windows.Application;
 
 namespace FixSitWPF.Activities
 {
+    /// <inheritdoc />
     /// <summary>
     /// Activity that instructs the user to do some exercises.
     /// </summary>
-    /// <seealso cref="FixSitWPF.Controller.IActivity" />
+    /// <seealso cref="T:FixSitWPF.Controller.IActivity" />
     public class ExerciseActivity : IActivity
     {
         
         public delegate void ExerciseEventArgs(List<string> paths);
         public event ExerciseEventArgs OnExerciseStart;
         public event ActivityEventArgs OnFinish;
+
         #region Member Variables
-        private Controller.Controller _Controller;
+
         #endregion
 
         #region Properties        
@@ -29,12 +31,10 @@ namespace FixSitWPF.Activities
         /// <value>
         /// The controller.
         /// </value>
-        public Controller.Controller Controller
-        {
-            get { return _Controller; }
-            set { _Controller = value; }
-        }
+        public Controller.Controller Controller { get; set; }
+
         #endregion
+
         #region Constructors        
         /// <summary>
         /// Initializes a new instance of the <see cref="ExerciseActivity"/> class.
@@ -42,11 +42,12 @@ namespace FixSitWPF.Activities
         /// <param name="c">The controller.</param>
         public ExerciseActivity(Controller.Controller c)
         {
-            _Controller = c;
+            Controller = c;
         }
         #endregion
 
         #region IActivity Functions        
+        /// <inheritdoc />
         /// <summary>
         /// Gets the priority of the
         /// </summary>
@@ -56,6 +57,7 @@ namespace FixSitWPF.Activities
             return "exercise";
         }
 
+        /// <inheritdoc />
         /// <summary>
         /// Gets the priority of the activity.
         /// </summary>
@@ -65,6 +67,7 @@ namespace FixSitWPF.Activities
             return 0;
         }
 
+        /// <inheritdoc />
         /// <summary>
         /// Starts the activity.
         /// </summary>
@@ -72,13 +75,12 @@ namespace FixSitWPF.Activities
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
-                var notification = new System.Windows.Forms.NotifyIcon()
+                NotifyIcon notification = new NotifyIcon()
                 {
                     Visible = true,
                     Icon = System.Drawing.SystemIcons.Information,
-                    // BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info,
-                    BalloonTipTitle = "FixSit",
-                    BalloonTipText = "We have some exercises for you",
+                    BalloonTipTitle = Resources.ApplicationName,
+                    BalloonTipText = Resources.ExercisesPopupText,
                 };
                 notification.ShowBalloonTip(5000);
                 notification.BalloonTipClicked += (sender, e) =>
@@ -86,11 +88,10 @@ namespace FixSitWPF.Activities
 
 
                         Random rnd = new Random();
-                        int itemsNeeded = 4;
-                        List<string> gifs = new List<string>(itemsNeeded);
+                        const int itemsNeeded = 4;
+                        List<string> gifPaths = new List<string>(itemsNeeded);
                         List<int> numbers = new List<int>(itemsNeeded);
                         List<int> availableNumbers = new List<int>();
-                        int n;
                         for (int i = 0; i < 9; i++)
                         {
                             availableNumbers.Add(i + 1);
@@ -103,23 +104,24 @@ namespace FixSitWPF.Activities
                         }
 
                         string[] splitDirData = Environment.CurrentDirectory.Split(new[] { @"\" }, StringSplitOptions.None);
-                        string pathToResources = String.Join("/", splitDirData.Take(splitDirData.Length - 2)) + "/Views/Resources/exercise";
+                        string pathToResources = string.Join("/", splitDirData.Take(splitDirData.Length - 2)) + "/Views/Resources/exercise";
                         
-                        string Sgif1 = pathToResources + numbers[0].ToString() + ".gif";
-                        string Sgif2 = pathToResources + numbers[1].ToString() + ".gif";
-                        string Sgif3 = pathToResources + numbers[2].ToString() + ".gif";
-                        string Sgif4 = pathToResources + numbers[3].ToString() + ".gif";
-                        gifs.Add(Sgif1);
-                        gifs.Add(Sgif2);
-                        gifs.Add(Sgif3);
-                        gifs.Add(Sgif4);
-                        OnExerciseStart?.Invoke(gifs);
+                        string gif1 = pathToResources + numbers[0].ToString() + ".gif";
+                        string gif2 = pathToResources + numbers[1].ToString() + ".gif";
+                        string gif3 = pathToResources + numbers[2].ToString() + ".gif";
+                        string gif4 = pathToResources + numbers[3].ToString() + ".gif";
+                        gifPaths.Add(gif1);
+                        gifPaths.Add(gif2);
+                        gifPaths.Add(gif3);
+                        gifPaths.Add(gif4);
+                        OnExerciseStart?.Invoke(gifPaths);
                         //DO SOMETHING
                     };
             });
-            OnFinish.Invoke(this);
+            OnFinish?.Invoke(this);
         }
 
+        /// <inheritdoc />
         /// <summary>
         /// Stops the activity.
         /// </summary>

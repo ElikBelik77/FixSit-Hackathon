@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Timers;
-using System.Threading.Tasks;
 
 namespace FixSitWPF.Controller
 {
@@ -14,16 +11,10 @@ namespace FixSitWPF.Controller
     /// </summary>
     public class ActivityScheduler
     {
-        /// <summary>
-        /// Occurs when [on a schedule happens]
-        /// </summary>
-        public event ScheduleEvent OnScheduleEvent;
-
         #region Member Variables
-        private Timer _ScheduleTimer;
-        private Dictionary<IActivity,int> _Activities;
-        private Dictionary<IActivity, int> _RemainingActivities;
-        private int _IdleTime = 0;
+
+        private readonly Dictionary<IActivity, int> _RemainingActivities;
+        private int _IdleTime;
         #endregion
 
         #region Properties        
@@ -33,11 +24,7 @@ namespace FixSitWPF.Controller
         /// <value>
         /// The activities.
         /// </value>
-        public Dictionary<IActivity,int> Activities
-        {
-            get { return _Activities; }
-            set { _Activities = value; }
-        }
+        public Dictionary<IActivity,int> Activities { get; set; }
 
         /// <summary>
         /// Gets or sets the schedule timer.
@@ -45,25 +32,22 @@ namespace FixSitWPF.Controller
         /// <value>
         /// The schedule timer.
         /// </value>
-        public Timer ScheduleTimer
-        {
-            get { return _ScheduleTimer; }
-            set { _ScheduleTimer = value; }
-        }
+        public Timer ScheduleTimer { get; set; }
+
         #endregion
 
         #region Constructors
-        public ActivityScheduler(Dictionary<IActivity, int> activties)
+        public ActivityScheduler(Dictionary<IActivity, int> activities)
         {
 
-            _Activities = activties;
-            _ScheduleTimer = new Timer();
-            _ScheduleTimer.Elapsed += _ScheduleTimer_Elapsed;
-            _ScheduleTimer.Interval = 1000;
+            Activities = activities;
+            ScheduleTimer = new Timer();
+            ScheduleTimer.Elapsed += ScheduleTimer_Elapsed;
+            ScheduleTimer.Interval = 1000;
             _RemainingActivities = new Dictionary<IActivity, int>();
-            foreach(IActivity activ in _Activities.Keys)
+            foreach(IActivity activity in Activities.Keys)
             {
-                _RemainingActivities.Add(activ, _Activities[activ]);
+                _RemainingActivities.Add(activity, Activities[activity]);
             }
         }
         #endregion
@@ -74,40 +58,35 @@ namespace FixSitWPF.Controller
         /// </summary>
         public void Start()
         {
-            _ScheduleTimer.Start();
+            ScheduleTimer.Start();
         }
 
         public void UpdateTimeInterval(string identifier, int newTime)
         {
-            IActivity activity = _Activities.Keys.Where(x => x.GetIdentifier() == identifier).ToList()[0];
-            int oldTime = _Activities[activity];
-            _Activities[activity] = newTime;
-
+            IActivity activity = Activities.Keys.Where(x => x.GetIdentifier() == identifier).ToList()[0];
+            Activities[activity] = newTime;
             _RemainingActivities[activity] = newTime;
-
-
         }
-        
-        private void _ScheduleTimer_Elapsed(object sender, ElapsedEventArgs e)
+
+        private void ScheduleTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
             _IdleTime += 1;
-            if(_RemainingActivities.First().Value <= _IdleTime)
-            {
-                _RemainingActivities.First().Key.OnFinish += Activity_OnFinish;
-                _ScheduleTimer.Stop();
-                System.Threading.Thread activityThread = new System.Threading.Thread(() => _RemainingActivities.First().Key.Start());
-                activityThread.Start();
-            }
+            if (_RemainingActivities.First().Value > _IdleTime) return;
+
+            _RemainingActivities.First().Key.OnFinish += Activity_OnFinish;
+            ScheduleTimer.Stop();
+            System.Threading.Thread activityThread = new System.Threading.Thread(() => _RemainingActivities.First().Key.Start());
+            activityThread.Start();
         }
         
         public void Resume()
         {
-            _ScheduleTimer.Start();
+            ScheduleTimer.Start();
         }
 
         public void Pause()
         {
-            _ScheduleTimer.Stop();
+            ScheduleTimer.Stop();
         }
 
 
@@ -117,22 +96,14 @@ namespace FixSitWPF.Controller
             _RemainingActivities.Remove(sender);
             if (_RemainingActivities.Count == 0)
             {
-                foreach (IActivity activ in _Activities.Keys)
+                foreach (IActivity activ in Activities.Keys)
                 {
-                    _RemainingActivities.Add(activ, _Activities[activ]);
+                    _RemainingActivities.Add(activ, Activities[activ]);
                 }
             }
-            _ScheduleTimer.Start();
+            ScheduleTimer.Start();
         }
 
-        /// <summary>
-        /// Raises the on scehdule event.
-        /// </summary>
-        /// <param name="activity">The activity.</param>
-        protected virtual void RaiseOnScehduleEvent(IActivity activity)
-        {
-            OnScheduleEvent?.Invoke(activity);
-        }
         #endregion
     }
 }

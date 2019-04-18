@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FixSitWPF.Controller
+﻿namespace FixSitWPF.Controller
 {
 
     public delegate void ActivityEventArgs(IActivity sender);

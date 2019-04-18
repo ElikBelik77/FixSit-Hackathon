@@ -1,50 +1,41 @@
-﻿using FixSitWPF.Activities;
-using FixSitWPF.Controller;
-using MahApps.Metro.Controls;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Forms;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using FixSitWPF.Views.Contents;
-using FixSitWPF.Views;
+using MahApps.Metro.Controls;
 
 namespace FixSitWPF
 {
+    /// <inheritdoc cref="MetroWindow"/>
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
         #region Member Variable
-        private System.Windows.Forms.NotifyIcon _NotifyIcon;
-        private WebCamContent _WebcamContent;
-        private FixSitContent _FixSitContent;
-        public ExerciseContent _ExerciseContent;
+        private readonly System.Windows.Forms.NotifyIcon _NotifyIcon;
+
         #endregion
 
-        #region Properties        
+        #region Properties   
+
+        /// <summary>
+        /// Gets or sets the content of the exercise.
+        /// </summary>
+        /// <value>
+        /// The content of the exercise.
+        /// </value>
+        public ExerciseContent ExerciseContent { get; set; }
+
         /// <summary>
         /// Gets or sets the content of the webcam.
         /// </summary>
         /// <value>
         /// The content of the webcam.
         /// </value>
-        public WebCamContent WebcamContent
-        {
-            get { return _WebcamContent; }
-            set { _WebcamContent = value; }
-        }
+        public WebCamContent WebcamContent { get; set; }
+
         #endregion
 
         #region Constructors        
@@ -54,22 +45,21 @@ namespace FixSitWPF
         public MainWindow()
         {
             InitializeComponent();
-            _WebcamContent = new WebCamContent();
-            _FixSitContent = new FixSitContent();
-            _ExerciseContent = new ExerciseContent();
-            SetContent(_FixSitContent);
+            WebcamContent = new WebCamContent();
+            FixSitContent fixSitContent = new FixSitContent();
+            ExerciseContent = new ExerciseContent();
+            SetContent(fixSitContent);
             FixSitWPF.Controller.Controller controller = new FixSitWPF.Controller.Controller(this);
 
-            _NotifyIcon = new System.Windows.Forms.NotifyIcon();
-            _NotifyIcon.Icon = System.Drawing.SystemIcons.Application;
+            _NotifyIcon = new System.Windows.Forms.NotifyIcon {Icon = System.Drawing.SystemIcons.Application};
             _NotifyIcon.Click += _NotifyIcon_Click;
             FixSitButton.Click += (sender, e) =>
             {
-                SetContent(_FixSitContent);
+                SetContent(fixSitContent);
             };
 
             WebcamButton.Click += (sender, e) => {
-                SetContent(_WebcamContent);
+                SetContent(WebcamContent);
             };
 
             
@@ -81,7 +71,6 @@ namespace FixSitWPF
                 List<string> gifs = new List<string>(itemsNeeded);
                 List<int> numbers = new List<int>(itemsNeeded);
                 List<int> availableNumbers = new List<int>();
-                int n;
                 for (int i = 0; i < 9; i++)
                 {
                     availableNumbers.Add(i + 1);
@@ -94,18 +83,18 @@ namespace FixSitWPF
                 }
 
                 string[] splitDirData = Environment.CurrentDirectory.Split(new[] { @"\" }, StringSplitOptions.None);
-                string pathToResources = String.Join("/", splitDirData.Take(splitDirData.Length - 2)) + "/Views/Resources/exercise";
+                string pathToResources = string.Join("/", splitDirData.Take(splitDirData.Length - 2)) + "/Views/Resources/exercise";
                 Console.WriteLine(pathToResources);
-                string Sgif1 = pathToResources + numbers[0].ToString() + ".gif";
-                string Sgif2 = pathToResources + numbers[1].ToString() + ".gif";
-                string Sgif3 = pathToResources + numbers[2].ToString() + ".gif";
-                string Sgif4 = pathToResources + numbers[3].ToString() + ".gif";
-                gifs.Add(Sgif1);
-                gifs.Add(Sgif2);
-                gifs.Add(Sgif3);
-                gifs.Add(Sgif4);
-                _ExerciseContent.ShowGifs(gifs);
-                SetContent(_ExerciseContent);
+                string gif1 = pathToResources + numbers[0].ToString() + ".gif";
+                string gif2  = pathToResources + numbers[1].ToString() + ".gif";
+                string gif3 = pathToResources + numbers[2].ToString() + ".gif";
+                string gif4 = pathToResources + numbers[3].ToString() + ".gif";
+                gifs.Add(gif1);
+                gifs.Add(gif2);
+                gifs.Add(gif3);
+                gifs.Add(gif4);
+                ExerciseContent.ShowGifs(gifs);
+                SetContent(ExerciseContent);
             };
 
             SettingsButton.Click += (sender, e) =>
@@ -138,23 +127,23 @@ namespace FixSitWPF
         
         private void _NotifyIcon_Click(object sender, EventArgs e)
         {
-            this.WindowState = WindowState.Normal;
-            this.Show();
+            WindowState = WindowState.Normal;
+            Show();
         }
 
         private void Quit_Click(object sender, RoutedEventArgs e)
         {
-            if (WindowState == WindowState.Minimized)
+            switch (WindowState)
             {
-                _NotifyIcon.Visible = false;
-                OnMaximize?.Invoke();
-            }
-
-            else if (WindowState.Normal == this.WindowState)
-            {
-                _NotifyIcon.Visible = true;
-                OnMinimize?.Invoke();
-                this.Hide();
+                case WindowState.Minimized:
+                    _NotifyIcon.Visible = false;
+                    OnMaximize?.Invoke();
+                    break;
+                case WindowState.Normal:
+                    _NotifyIcon.Visible = true;
+                    OnMinimize?.Invoke();
+                    Hide();
+                    break;
             }
         }
     }

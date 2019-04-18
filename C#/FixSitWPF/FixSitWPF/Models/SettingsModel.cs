@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 namespace FixSitWPF.Models
 {
     public class SettingsModel : INotifyPropertyChanged
     {
-        
         #region Member Variables
         private int _PostureTimeInterval;
         private int _ExerciseTimeInterval;
@@ -26,7 +20,7 @@ namespace FixSitWPF.Models
         #region Properties
         public int ExerciseTimeInterval
         {
-            get { return _ExerciseTimeInterval; }
+            get => _ExerciseTimeInterval;
             set { _ExerciseTimeInterval = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("ExerciseTimeInterval"));
             }
@@ -34,7 +28,7 @@ namespace FixSitWPF.Models
 
         public int PostureTimeInterval
         {
-            get { return _PostureTimeInterval; }
+            get => _PostureTimeInterval;
             set { _PostureTimeInterval = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("PostureTimeInterval"));
             }

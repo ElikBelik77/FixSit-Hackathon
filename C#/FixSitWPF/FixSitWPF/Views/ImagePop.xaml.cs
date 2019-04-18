@@ -1,21 +1,13 @@
-﻿using MahApps.Metro.Controls;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using MahApps.Metro.Controls;
 using WpfAnimatedGif;
 
 namespace FixSitWPF.Views
 {
+    /// <inheritdoc cref="UserControl" />
     /// <summary>
     /// Interaction logic for ImagePop.xaml
     /// </summary>
@@ -30,13 +22,13 @@ namespace FixSitWPF.Views
             Grid.SetColumnSpan(cv, 1);
             Grid.SetColumn(cv, 1);
             string[] splitDirData = Environment.CurrentDirectory.Split(new[] { @"\" }, StringSplitOptions.None);
-            string pathToResources = String.Join("/", splitDirData.Take(splitDirData.Length - 2)) + "/Views/Resources/fixback.gif";
+            string pathToResources = string.Join("/", splitDirData.Take(splitDirData.Length - 2)) + "/Views/Resources/fixback.gif";
             ImageView.Source = new BitmapImage(new Uri(pathToResources, UriKind.Absolute));
-            var image = new BitmapImage();
+            BitmapImage image = new BitmapImage();
             image.BeginInit();
             image.UriSource = new Uri(pathToResources, UriKind.Absolute);
             image.EndInit();
-            ImageBehavior.SetAnimatedSource(this.ImageView, image);
+            ImageBehavior.SetAnimatedSource(ImageView, image);
 
         }
     }
